@@ -1,5 +1,13 @@
 import { useReducer } from 'react';
-import { Paper, Grid, Typography, TextField, IconButton } from '@mui/material';
+import {
+  Paper,
+  Box,
+  Grid,
+  Stack,
+  Typography,
+  TextField,
+  IconButton,
+} from '@mui/material';
 import { Percent, Add, Remove } from '@mui/icons-material';
 
 // go to https://mui.com/material-ui/react-text-field/#components
@@ -61,13 +69,13 @@ const Incrementor = props => {
   };
 
   return (
-    <Grid container spacing={1} alignItems="center">
-      <Grid item xs={2}>
+    <Stack direction="row">
+      <Box>
         <IconButton size="small" onClick={handleDecrement}>
           <Remove />
         </IconButton>
-      </Grid>
-      <Grid item xs={8} sx={{ justifySelf: 'center' }}>
+      </Box>
+      <Box>
         <TextField
           type="number"
           inputProps={{
@@ -84,13 +92,13 @@ const Incrementor = props => {
           value={props.value}
           onChange={handleChange}
         />
-      </Grid>
-      <Grid item xs={2}>
+      </Box>
+      <Box>
         <IconButton size="small" onClick={handleIncrement}>
           <Add />
         </IconButton>
-      </Grid>
-    </Grid>
+      </Box>
+    </Stack>
   );
 };
 
