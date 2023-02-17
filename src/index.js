@@ -5,6 +5,9 @@ import reportWebVitals from './reportWebVitals';
 import App from './components/App/App';
 import CssBaseLine from '@mui/material/CssBaseline';
 
+import { store } from './store/store';
+import { Provider } from 'react-redux';
+
 import '@fontsource/roboto/300.css';
 import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
@@ -13,8 +16,10 @@ import '@fontsource/roboto/700.css';
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
-    <CssBaseLine />
-    <App />
+    <Provider store={store}>
+      <CssBaseLine />
+      <App />
+    </Provider>
   </React.StrictMode>
 );
 
