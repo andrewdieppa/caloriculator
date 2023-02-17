@@ -1,6 +1,6 @@
 import { createSlice } from '@reduxjs/toolkit';
 
-const intitialState = {
+const initialState = {
   protein: 0,
   carb: 0,
   fat: 0,
