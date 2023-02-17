@@ -1,46 +1,59 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  protein: 0,
-  carb: 0,
-  fat: 0,
+  proteinPerc: 0,
+  carbPerc: 0,
+  fatPerc: 0,
 };
 
 const stepAmount = 5;
+
+const percStepIsValid = (prot, carb, fat) => {
+  return prot + carb + fat + stepAmount <= 100;
+};
 
 export const calorieDataSlice = createSlice({
   name: 'calorieData',
   initialState,
   reducers: {
     incrementProtein: state => {
-      state.protein += stepAmount;
+      if (percStepIsValid(state.proteinPerc, state.carbPerc, state.fatPerc)) {
+        state.proteinPerc += stepAmount;
+      }
     },
     decrementProtein: state => {
-      state.protein -= stepAmount;
+      if (state.proteinPerc - stepAmount >= 0) {
+        state.proteinPerc -= stepAmount;
+      }
     },
     incrementCarb: state => {
-      state.carb += stepAmount;
+      if (percStepIsValid(state.proteinPerc, state.carbPerc, state.fatPerc)) {
+        state.carbPerc += stepAmount;
+      }
     },
     decrementCarb: state => {
-      state.carb -= stepAmount;
+      if (state.carbPerc - stepAmount >= 0) {
+        state.carbPerc -= stepAmount;
+      }
     },
     incrementFat: state => {
-      state.fat += stepAmount;
+      if (percStepIsValid(state.proteinPerc, state.carbPerc, state.fatPerc)) {
+        state.fatPerc += stepAmount;
+      }
     },
     decrementFat: state => {
-      state.fat -= stepAmount;
+      if (state.fatPerc - stepAmount >= 0) {
+        state.fatPerc -= stepAmount;
+      }
     },
   },
 });
 
 export const {
-  setProtein,
   incrementProtein,
   decrementProtein,
-  setCarb,
   incrementCarb,
   decrementCarb,
-  setFat,
   incrementFat,
   decrementFat,
 } = calorieDataSlice.actions;

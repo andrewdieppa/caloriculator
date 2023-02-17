@@ -12,7 +12,9 @@ import {
 } from '../../store/calorieDataSlice';
 
 const MacroPercentages = () => {
-  const { protein, carb, fat } = useSelector(state => state.calorieData);
+  const { proteinPerc, carbPerc, fatPerc } = useSelector(
+    state => state.calorieData
+  );
   const dispatch = useDispatch();
 
   return (
@@ -26,7 +28,7 @@ const MacroPercentages = () => {
         <Grid item xs={12} sm={4}>
           <Counter
             label="Protein"
-            value={protein}
+            value={proteinPerc}
             adornment={<Percent />}
             onDec={dispatch.bind(null, decrementProtein())}
             onInc={dispatch.bind(null, incrementProtein())}
@@ -35,7 +37,7 @@ const MacroPercentages = () => {
         <Grid item xs={12} sm={4}>
           <Counter
             label="Carb"
-            value={carb}
+            value={carbPerc}
             adornment={<Percent />}
             onDec={dispatch.bind(null, decrementCarb())}
             onInc={dispatch.bind(null, incrementCarb())}
@@ -44,7 +46,7 @@ const MacroPercentages = () => {
         <Grid item xs={12} sm={4}>
           <Counter
             label="Fat"
-            value={fat}
+            value={fatPerc}
             adornment={<Percent />}
             onDec={dispatch.bind(null, decrementFat())}
             onInc={dispatch.bind(null, incrementFat())}
