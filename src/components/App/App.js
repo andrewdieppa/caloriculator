@@ -11,14 +11,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
-            <MacroPercentages />
-          </Grid>
-          <Grid item xs={12}>
-            <MacroPercentages />
-          </Grid>
-        </Grid>
+        <MacroPercentages />
       </Container>
     </ThemeProvider>
   );

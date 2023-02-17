@@ -1,113 +1,19 @@
-import { useReducer } from 'react';
+import Counter from '../Reusable/Counter/Counter';
+import { Paper, Grid, Typography } from '@mui/material';
+import { Percent } from '@mui/icons-material';
+import { useSelector, useDispatch } from 'react-redux';
 import {
-  Paper,
-  Box,
-  Grid,
-  Stack,
-  Typography,
-  TextField,
-  IconButton,
-} from '@mui/material';
-import { Percent, Add, Remove } from '@mui/icons-material';
-
-// go to https://mui.com/material-ui/react-text-field/#components
-// to further investigate TextField customization
-
-const macroReducer = (state, action) => {
-  // fancy state stuff
-  switch (action.type) {
-    case 'SET_PROTEIN':
-      return { ...state, protein: action.payload };
-
-    case 'INCREMENT_PROTEIN':
-      return { ...state, protein: state.protein + 5 };
-
-    case 'DECREMENT_PROTEIN':
-      return { ...state, protein: state.protein - 5 };
-
-    case 'SET_CARB':
-      return { ...state, carb: action.payload };
-
-    case 'INCREMENT_CARB':
-      return { ...state, carb: state.carb + 5 };
-
-    case 'DECREMENT_CARB':
-      return { ...state, carb: state.carb - 5 };
-
-    case 'SET_FAT':
-      return { ...state, fat: action.payload };
-
-    case 'INCREMENT_FAT':
-      return { ...state, fat: state.fat + 5 };
-
-    case 'DECREMENT_FAT':
-      return { ...state, fat: state.fat - 5 };
-
-    default:
-      return state;
-  }
-};
-
-const Incrementor = props => {
-  const handleChange = event => {
-    props.dispatch({
-      type: `SET_${props.label.toUpperCase()}`,
-      payload: event.target.value,
-    });
-  };
-
-  const handleIncrement = event => {
-    props.dispatch({
-      type: `INCREMENT_${props.label.toUpperCase()}`,
-    });
-  };
-
-  const handleDecrement = event => {
-    props.dispatch({
-      type: `DECREMENT_${props.label.toUpperCase()}`,
-    });
-  };
-
-  return (
-    <Stack direction="row">
-      <Box>
-        <IconButton size="small" onClick={handleDecrement}>
-          <Remove />
-        </IconButton>
-      </Box>
-      <Box>
-        <TextField
-          type="number"
-          inputProps={{
-            style: { textAlign: 'center' },
-            min: 0,
-            max: 100,
-            step: 1,
-          }}
-          InputProps={{ startAdornment: <Percent /> }}
-          id={props.label}
-          label={props.label}
-          variant="outlined"
-          size="small"
-          value={props.value}
-          onChange={handleChange}
-        />
-      </Box>
-      <Box>
-        <IconButton size="small" onClick={handleIncrement}>
-          <Add />
-        </IconButton>
-      </Box>
-    </Stack>
-  );
-};
+  incrementProtein,
+  incrementCarb,
+  incrementFat,
+  decrementProtein,
+  decrementCarb,
+  decrementFat,
+} from '../../store/calorieDataSlice';
 
 const MacroPercentages = () => {
-  const [macroState, macroDispatch] = useReducer(macroReducer, {
-    protein: 0,
-    carb: 0,
-    fat: 0,
-  });
+  const { protein, carb, fat } = useSelector(state => state.calorieData);
+  const dispatch = useDispatch();
 
   return (
     <Paper sx={{ px: 2, py: 1 }}>
@@ -118,24 +24,30 @@ const MacroPercentages = () => {
           </Typography>
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Incrementor
+          <Counter
             label="Protein"
-            value={macroState.protein}
-            dispatch={macroDispatch}
+            value={protein}
+            adornment={<Percent />}
+            onDec={dispatch.bind(null, decrementProtein())}
+            onInc={dispatch.bind(null, incrementProtein())}
           />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Incrementor
+          <Counter
             label="Carb"
-            value={macroState.carb}
-            dispatch={macroDispatch}
+            value={carb}
+            adornment={<Percent />}
+            onDec={dispatch.bind(null, decrementCarb())}
+            onInc={dispatch.bind(null, incrementCarb())}
           />
         </Grid>
         <Grid item xs={12} sm={4}>
-          <Incrementor
+          <Counter
             label="Fat"
-            value={macroState.fat}
-            dispatch={macroDispatch}
+            value={fat}
+            adornment={<Percent />}
+            onDec={dispatch.bind(null, decrementFat())}
+            onInc={dispatch.bind(null, incrementFat())}
           />
         </Grid>
       </Grid>
