@@ -12,28 +12,28 @@ const macroReducer = (state, action) => {
       return { ...state, protein: action.payload };
 
     case 'INCREMENT_PROTEIN':
-      return { ...state, protein: state.protein + 1 };
+      return { ...state, protein: state.protein + 5 };
 
     case 'DECREMENT_PROTEIN':
-      return { ...state, protein: state.protein - 1 };
+      return { ...state, protein: state.protein - 5 };
 
     case 'SET_CARB':
       return { ...state, carb: action.payload };
 
     case 'INCREMENT_CARB':
-      return { ...state, carb: state.carb + 1 };
+      return { ...state, carb: state.carb + 5 };
 
     case 'DECREMENT_CARB':
-      return { ...state, carb: state.carb - 1 };
+      return { ...state, carb: state.carb - 5 };
 
     case 'SET_FAT':
       return { ...state, fat: action.payload };
 
     case 'INCREMENT_FAT':
-      return { ...state, fat: state.fat + 1 };
+      return { ...state, fat: state.fat + 5 };
 
     case 'DECREMENT_FAT':
-      return { ...state, fat: state.fat - 1 };
+      return { ...state, fat: state.fat - 5 };
 
     default:
       return state;
