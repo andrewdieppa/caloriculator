@@ -6,27 +6,29 @@ const initialState = {
   fat: 0,
 };
 
+const stepAmount = 5;
+
 export const calorieDataSlice = createSlice({
   name: 'calorieData',
   initialState,
   reducers: {
     incrementProtein: state => {
-      state.protein += 5;
+      state.protein += stepAmount;
     },
     decrementProtein: state => {
-      state.protein -= 5;
+      state.protein -= stepAmount;
     },
     incrementCarb: state => {
-      state.carb += 5;
+      state.carb += stepAmount;
     },
     decrementCarb: state => {
-      state.carb -= 5;
+      state.carb -= stepAmount;
     },
     incrementFat: state => {
-      state.fat += 5;
+      state.fat += stepAmount;
     },
     decrementFat: state => {
-      state.fat -= 5;
+      state.fat -= stepAmount;
     },
   },
 });
