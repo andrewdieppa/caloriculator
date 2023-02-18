@@ -1,4 +1,5 @@
 import MacroPercentages from '../MacroPercentages/MacroPercentages';
+import TotalCalories from '../TotalCalories/TotalCalories';
 import { Container, createTheme, Grid, ThemeProvider } from '@mui/material';
 
 const theme = createTheme({
@@ -11,6 +12,7 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Container>
+        <TotalCalories />
         <MacroPercentages />
       </Container>
     </ThemeProvider>

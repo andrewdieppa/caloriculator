@@ -2,7 +2,7 @@ import { Remove, Add } from '@mui/icons-material';
 
 import { Box, IconButton, Stack, TextField } from '@mui/material';
 
-const Counter = ({ label, value, onDec, onInc, adornment }) => {
+const Counter = ({ label, value, onDec, onInc, adornment, textFieldWidth }) => {
   return (
     <Stack direction="row">
       <Box>
@@ -10,7 +10,7 @@ const Counter = ({ label, value, onDec, onInc, adornment }) => {
           <Remove />
         </IconButton>
       </Box>
-      <Box width={adornment ? 100 : 70}>
+      <Box width={textFieldWidth || 100}>
         <TextField
           type="number"
           inputProps={{
