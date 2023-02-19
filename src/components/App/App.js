@@ -1,6 +1,7 @@
 import MacroPercentages from '../MacroPercentages/MacroPercentages';
+import MacroGrams from '../MacroGrams/MacroGrams';
 import TotalCalories from '../TotalCalories/TotalCalories';
-import { Container, createTheme, Grid, ThemeProvider } from '@mui/material';
+import { Container, createTheme, Stack, ThemeProvider } from '@mui/material';
 
 const theme = createTheme({
   palette: {
@@ -12,8 +13,11 @@ function App() {
   return (
     <ThemeProvider theme={theme}>
       <Container>
-        <TotalCalories />
-        <MacroPercentages />
+        <Stack spacing={1}>
+          <TotalCalories />
+          <MacroPercentages />
+          <MacroGrams />
+        </Stack>
       </Container>
     </ThemeProvider>
   );

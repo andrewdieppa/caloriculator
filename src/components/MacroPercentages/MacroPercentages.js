@@ -21,7 +21,7 @@ const MacroPercentages = () => {
     <Paper sx={{ px: 2, py: 1 }}>
       <Grid container spacing={1} justifyContent="space-evenly">
         <Grid item xs={12}>
-          <Typography variant="h6" component="h4">
+          <Typography variant="h5" component="h4">
             Macro Percentages
           </Typography>
         </Grid>

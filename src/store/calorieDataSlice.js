@@ -5,6 +5,9 @@ const initialState = {
   proteinPerc: 0,
   carbPerc: 0,
   fatPerc: 0,
+  proteinGrams: 0,
+  carbGrams: 0,
+  fatGrams: 0,
 };
 
 const macroStepAmount = 5;
@@ -56,6 +59,11 @@ export const calorieDataSlice = createSlice({
         state.fatPerc -= macroStepAmount;
       }
     },
+    setGrams: (state, action) => {
+      state.proteinGrams = action.payload[0];
+      state.carbGrams = action.payload[1];
+      state.fatGrams = action.payload[2];
+    },
   },
 });
 
@@ -68,6 +76,7 @@ export const {
   decrementProtein,
   decrementCarb,
   decrementFat,
+  setGrams,
 } = calorieDataSlice.actions;
 
 export const actions = calorieDataSlice.actions;

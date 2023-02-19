@@ -12,7 +12,7 @@ const TotalCalories = () => {
 
   return (
     <Paper sx={{ px: 2, py: 1 }}>
-      <Typography variant="h6" component="h4" sx={{ mb: 1 }}>
+      <Typography variant="h5" component="h4" sx={{ mb: 1 }}>
         Total Caloric Intake
       </Typography>
       <Counter
