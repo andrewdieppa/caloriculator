@@ -1,6 +1,7 @@
 import Counter from '../Reusable/Counter/Counter';
-import { Paper, Grid, Typography } from '@mui/material';
-import { Percent } from '@mui/icons-material';
+import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
+import { Paper, Grid } from '@mui/material';
+import Percent from '@mui/icons-material/Percent';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   incrementProtein,
@@ -21,9 +22,9 @@ const MacroPercentages = () => {
     <Paper sx={{ px: 2, py: 1 }}>
       <Grid container spacing={1} justifyContent="space-evenly">
         <Grid item xs={12}>
-          <Typography variant="h6" component="h4">
+          <SectionTitle variant="h5" component="h4">
             Macro Percentages
-          </Typography>
+          </SectionTitle>
         </Grid>
         <Grid item xs={12} sm={4}>
           <Counter
