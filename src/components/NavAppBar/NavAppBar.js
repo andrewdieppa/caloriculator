@@ -1,4 +1,4 @@
-import * as React from 'react';
+import MuiLightDarkSwitch from '../MuiLightDarkSwitch/MuiLightDarkSwitch';
 import MenuIcon from '@mui/icons-material/Menu';
 import {
   AppBar,
@@ -8,8 +8,16 @@ import {
   Button,
   IconButton,
 } from '@mui/material';
+import { useDispatch } from 'react-redux';
+import { toggleMode } from '../../store/uiSlice';
 
 const NavAppBar = () => {
+  const dispatch = useDispatch();
+
+  const handleModeToggle = () => {
+    dispatch(toggleMode());
+  };
+
   return (
     <Box sx={{ flexGrow: 1, mb: 2 }}>
       <AppBar position="static" enableColorOnDark>
@@ -30,6 +38,7 @@ const NavAppBar = () => {
             </Typography>
           </Typography>
           <Button color="inherit">Login</Button>
+          <MuiLightDarkSwitch onChange={handleModeToggle} />
         </Toolbar>
       </AppBar>
     </Box>

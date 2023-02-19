@@ -27,7 +27,7 @@ const MacroGrams = () => {
   useEffect(() => {
     const grams = calculateGrams(totalCalories, proteinPerc, carbPerc, fatPerc);
     dispatch(setGrams(grams));
-  }, [totalCalories, proteinPerc, carbPerc, fatPerc]);
+  }, [totalCalories, proteinPerc, carbPerc, fatPerc, dispatch]);
 
   return (
     <Paper sx={{ px: 2, py: 1 }}>
