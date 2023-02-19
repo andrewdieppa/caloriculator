@@ -4,6 +4,7 @@ import reportWebVitals from './reportWebVitals';
 
 import App from './components/App/App';
 import CssBaseLine from '@mui/material/CssBaseline';
+import { createTheme, ThemeProvider } from '@mui/material/styles';
 
 import { store } from './store/store';
 import { Provider } from 'react-redux';
@@ -13,12 +14,20 @@ import '@fontsource/roboto/400.css';
 import '@fontsource/roboto/500.css';
 import '@fontsource/roboto/700.css';
 
+const theme = createTheme({
+  palette: {
+    mode: 'light',
+  },
+});
+
 const root = ReactDOM.createRoot(document.getElementById('root'));
 root.render(
   <React.StrictMode>
     <Provider store={store}>
-      <CssBaseLine />
-      <App />
+      <ThemeProvider theme={theme}>
+        <CssBaseLine />
+        <App />
+      </ThemeProvider>
     </Provider>
   </React.StrictMode>
 );
