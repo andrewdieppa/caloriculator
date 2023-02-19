@@ -1,4 +1,5 @@
-import { Remove, Add } from '@mui/icons-material';
+import Remove from '@mui/icons-material/Remove';
+import Add from '@mui/icons-material/Add';
 
 import { Box, IconButton, Stack, TextField } from '@mui/material';
 

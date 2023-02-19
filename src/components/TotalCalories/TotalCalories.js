@@ -1,5 +1,6 @@
 import Counter from '../Reusable/Counter/Counter';
-import { Paper, Typography } from '@mui/material';
+import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
+import Paper from '@mui/material/Paper';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   incrementCalories,
@@ -12,9 +13,9 @@ const TotalCalories = () => {
 
   return (
     <Paper sx={{ px: 2, py: 1 }}>
-      <Typography variant="h5" component="h4" sx={{ mb: 1 }}>
+      <SectionTitle variant="h5" component="h4" sx={{ mb: 1 }}>
         Total Caloric Intake
-      </Typography>
+      </SectionTitle>
       <Counter
         label="Calories"
         value={totalCalories}

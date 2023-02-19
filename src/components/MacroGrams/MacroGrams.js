@@ -1,4 +1,5 @@
 import { useEffect } from 'react';
+import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
 import { Typography, Paper, Stack, Divider } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setGrams } from '../../store/calorieDataSlice';
@@ -30,9 +31,9 @@ const MacroGrams = () => {
 
   return (
     <Paper sx={{ px: 2, py: 1 }}>
-      <Typography variant="h5" component="h4" sx={{ mb: 1 }}>
+      <SectionTitle variant="h5" component="h4" sx={{ mb: 1 }}>
         Macro Grams
-      </Typography>
+      </SectionTitle>
       <Stack
         direction={{ xs: 'column', sm: 'row' }}
         justifyContent="space-evenly"
