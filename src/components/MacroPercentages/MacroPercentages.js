@@ -20,13 +20,11 @@ const MacroPercentages = () => {
 
   return (
     <Paper sx={{ px: 2, py: 1 }}>
-      <Grid container spacing={1} justifyContent="space-evenly">
+      <SectionTitle variant="h5" component="h4">
+        Macro Percentages
+      </SectionTitle>
+      <Grid container spacing={2} direction="column" alignContent="center">
         <Grid item xs={12}>
-          <SectionTitle variant="h5" component="h4">
-            Macro Percentages
-          </SectionTitle>
-        </Grid>
-        <Grid item xs={12} sm={4}>
           <Counter
             label="Protein"
             value={proteinPerc}
@@ -35,7 +33,7 @@ const MacroPercentages = () => {
             onInc={dispatch.bind(null, incrementProtein())}
           />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12}>
           <Counter
             label="Carb"
             value={carbPerc}
@@ -44,7 +42,7 @@ const MacroPercentages = () => {
             onInc={dispatch.bind(null, incrementCarb())}
           />
         </Grid>
-        <Grid item xs={12} sm={4}>
+        <Grid item xs={12}>
           <Counter
             label="Fat"
             value={fatPerc}

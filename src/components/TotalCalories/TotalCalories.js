@@ -1,6 +1,6 @@
 import Counter from '../Reusable/Counter/Counter';
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
-import Paper from '@mui/material/Paper';
+import { Paper, Box } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   incrementCalories,
@@ -16,14 +16,21 @@ const TotalCalories = () => {
       <SectionTitle variant="h5" component="h4" sx={{ mb: 1 }}>
         Total Caloric Intake
       </SectionTitle>
-      <Counter
-        label="Calories"
-        value={totalCalories}
-        textFieldWidth={150}
-        adornment="kcal"
-        onDec={dispatch.bind(null, decrementCalories())}
-        onInc={dispatch.bind(null, incrementCalories())}
-      />
+      <Box
+        sx={{
+          display: 'flex',
+          justifyContent: 'center',
+        }}
+      >
+        <Counter
+          label="Calories"
+          value={totalCalories}
+          textFieldWidth={150}
+          adornment="kcal"
+          onDec={dispatch.bind(null, decrementCalories())}
+          onInc={dispatch.bind(null, incrementCalories())}
+        />
+      </Box>
     </Paper>
   );
 };
