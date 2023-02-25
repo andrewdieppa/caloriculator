@@ -2,7 +2,7 @@ import NavAppBar from '../NavAppBar/NavAppBar';
 import MacroPercentages from '../MacroPercentages/MacroPercentages';
 import MacroGrams from '../MacroGrams/MacroGrams';
 import TotalCalories from '../TotalCalories/TotalCalories';
-import { Container, Stack } from '@mui/material';
+import { Container, Grid } from '@mui/material';
 import { createTheme, ThemeProvider } from '@mui/material/styles';
 import CssBaseLine from '@mui/material/CssBaseline';
 import { useSelector } from 'react-redux';
@@ -10,12 +10,18 @@ import { useSelector } from 'react-redux';
 const lightTheme = createTheme({
   palette: {
     mode: 'light',
+    background: {
+      default: '#eee',
+    },
   },
 });
 
 const darkTheme = createTheme({
   palette: {
     mode: 'dark',
+    background: {
+      default: '#333',
+    },
   },
 });
 
@@ -29,11 +35,17 @@ function App() {
       <CssBaseLine />
       <NavAppBar />
       <Container>
-        <Stack spacing={1}>
-          <TotalCalories />
-          <MacroPercentages />
-          <MacroGrams />
-        </Stack>
+        <Grid container spacing={2}>
+          <Grid item xs={12}>
+            <TotalCalories />
+          </Grid>
+          <Grid item xs={6}>
+            <MacroPercentages />
+          </Grid>
+          <Grid item xs={6}>
+            <MacroGrams />
+          </Grid>
+        </Grid>
       </Container>
     </ThemeProvider>
   );

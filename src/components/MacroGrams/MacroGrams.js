@@ -35,8 +35,9 @@ const MacroGrams = () => {
         Macro Grams
       </SectionTitle>
       <Stack
-        direction={{ xs: 'column', sm: 'row' }}
+        direction={{ xs: 'column', md: 'row' }}
         justifyContent="space-evenly"
+        alignItems="center"
         divider={<Divider orientation="vertical" flexItem />}
         spacing={2}
       >
