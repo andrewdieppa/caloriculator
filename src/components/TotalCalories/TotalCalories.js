@@ -1,11 +1,8 @@
 import Counter from '../Reusable/Counter/Counter';
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
-import { Paper, Box } from '@mui/material';
+import { Paper, Box, TextField } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  incrementCalories,
-  decrementCalories,
-} from '../../store/calorieDataSlice';
+import { setCalories } from '../../store/calorieDataSlice';
 
 const TotalCalories = () => {
   const { totalCalories } = useSelector(state => state.calorieData);
@@ -22,13 +19,28 @@ const TotalCalories = () => {
           justifyContent: 'center',
         }}
       >
-        <Counter
+        {/* <Counter
           label="Calories"
           value={totalCalories}
           textFieldWidth={150}
           adornment="kcal"
           onDec={dispatch.bind(null, decrementCalories())}
           onInc={dispatch.bind(null, incrementCalories())}
+        /> */}
+        <TextField
+          type="number"
+          inputProps={{
+            style: { textAlign: 'center' },
+          }}
+          InputProps={{
+            startAdornment: 'kcal',
+          }}
+          id="Calories"
+          label="Calories"
+          variant="outlined"
+          size="small"
+          value={totalCalories}
+          onChange={e => dispatch(setCalories(e.target.value))}
         />
       </Box>
     </Paper>

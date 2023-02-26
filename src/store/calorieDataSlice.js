@@ -29,6 +29,9 @@ export const calorieDataSlice = createSlice({
         state.totalCalories -= calorieStepAmount;
       }
     },
+    setCalories: (state, action) => {
+      state.totalCalories = action.payload;
+    },
     incrementProtein: state => {
       if (percStepIsValid(state.proteinPerc, state.carbPerc, state.fatPerc)) {
         state.proteinPerc += macroStepAmount;
@@ -70,6 +73,7 @@ export const calorieDataSlice = createSlice({
 export const {
   incrementCalories,
   incrementProtein,
+  setCalories,
   incrementCarb,
   incrementFat,
   decrementCalories,
