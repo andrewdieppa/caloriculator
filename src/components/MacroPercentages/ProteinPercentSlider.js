@@ -3,7 +3,7 @@ import Percent from '@mui/icons-material/Percent';
 import { useSelector, useDispatch } from 'react-redux';
 import { setProteinPerc } from '../../store/calorieDataSlice';
 
-const ProteinPercentSlider = () => {
+const ProteinPercentSlider = ({ color }) => {
   const handleSliderChange = (event, newValue) => {
     dispatch(setProteinPerc(newValue));
   };
@@ -41,6 +41,7 @@ const ProteinPercentSlider = () => {
             value={proteinPerc}
             onChange={handleSliderChange}
             aria-labelledby="input-slider"
+            color={color}
           />
         </Grid>
         <Grid item>
