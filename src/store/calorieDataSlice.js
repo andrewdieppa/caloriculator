@@ -32,6 +32,24 @@ export const calorieDataSlice = createSlice({
     setCalories: (state, action) => {
       state.totalCalories = action.payload;
     },
+    setProteinPerc: (state, action) => {
+      state.proteinPerc = action.payload;
+    },
+    setCarbPerc: (state, action) => {
+      state.carbPerc = action.payload;
+    },
+    setFatPerc: (state, action) => {
+      state.fatPerc = action.payload;
+    },
+    setProteinGrams: (state, action) => {
+      state.proteinGrams = action.payload;
+    },
+    setCarbGrams: (state, action) => {
+      state.carbGrams = action.payload;
+    },
+    setFatGrams: (state, action) => {
+      state.fatGrams = action.payload;
+    },
     incrementProtein: state => {
       if (percStepIsValid(state.proteinPerc, state.carbPerc, state.fatPerc)) {
         state.proteinPerc += macroStepAmount;
@@ -81,6 +99,12 @@ export const {
   decrementCarb,
   decrementFat,
   setGrams,
+  setProteinPerc,
+  setCarbPerc,
+  setFatPerc,
+  setProteinGrams,
+  setCarbGrams,
+  setFatGrams,
 } = calorieDataSlice.actions;
 
 export const actions = calorieDataSlice.actions;

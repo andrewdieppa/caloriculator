@@ -19,14 +19,6 @@ const TotalCalories = () => {
           justifyContent: 'center',
         }}
       >
-        {/* <Counter
-          label="Calories"
-          value={totalCalories}
-          textFieldWidth={150}
-          adornment="kcal"
-          onDec={dispatch.bind(null, decrementCalories())}
-          onInc={dispatch.bind(null, incrementCalories())}
-        /> */}
         <TextField
           type="number"
           inputProps={{
