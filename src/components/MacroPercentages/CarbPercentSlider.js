@@ -5,12 +5,10 @@ import { setCarbPerc } from '../../store/calorieDataSlice';
 
 const CarbPercentSlider = () => {
   const handleSliderChange = (event, newValue) => {
-    //setValue(newValue);
     dispatch(setCarbPerc(newValue));
   };
 
   const handleInputChange = event => {
-    //setValue(event.target.value === '' ? '' : Number(event.target.value));
     dispatch(
       setCarbPerc(event.target.value === '' ? 0 : Number(event.target.value))
     );
@@ -18,10 +16,8 @@ const CarbPercentSlider = () => {
 
   const handleBlur = e => {
     if (e.target.value < 0) {
-      //setValue(0);
       dispatch(setCarbPerc(0));
     } else if (e.target.value > 100) {
-      //setValue(100);
       dispatch(setCarbPerc(100));
     }
   };

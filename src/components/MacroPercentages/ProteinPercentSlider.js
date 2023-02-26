@@ -5,12 +5,10 @@ import { setProteinPerc } from '../../store/calorieDataSlice';
 
 const ProteinPercentSlider = () => {
   const handleSliderChange = (event, newValue) => {
-    //setValue(newValue);
     dispatch(setProteinPerc(newValue));
   };
 
   const handleInputChange = event => {
-    //setValue(event.target.value === '' ? '' : Number(event.target.value));
     dispatch(
       setProteinPerc(event.target.value === '' ? 0 : Number(event.target.value))
     );
@@ -18,10 +16,8 @@ const ProteinPercentSlider = () => {
 
   const handleBlur = e => {
     if (e.target.value < 0) {
-      //setValue(0);
       dispatch(setProteinPerc(0));
     } else if (e.target.value > 100) {
-      //setValue(100);
       dispatch(setProteinPerc(100));
     }
   };

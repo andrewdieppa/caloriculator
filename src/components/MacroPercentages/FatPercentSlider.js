@@ -5,12 +5,10 @@ import { setFatPerc } from '../../store/calorieDataSlice';
 
 const FatPercentSlider = () => {
   const handleSliderChange = (event, newValue) => {
-    //setValue(newValue);
     dispatch(setFatPerc(newValue));
   };
 
   const handleInputChange = event => {
-    //setValue(event.target.value === '' ? '' : Number(event.target.value));
     dispatch(
       setFatPerc(event.target.value === '' ? 0 : Number(event.target.value))
     );
@@ -18,10 +16,8 @@ const FatPercentSlider = () => {
 
   const handleBlur = e => {
     if (e.target.value < 0) {
-      //setValue(0);
       dispatch(setFatPerc(0));
     } else if (e.target.value > 100) {
-      //setValue(100);
       dispatch(setFatPerc(100));
     }
   };
