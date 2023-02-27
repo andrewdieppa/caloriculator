@@ -1,4 +1,4 @@
-import { Typography, Slider, Input, Grid, Box } from '@mui/material';
+import { Paper, Typography, Slider, Input, Grid } from '@mui/material';
 import Percent from '@mui/icons-material/Percent';
 import { useSelector, useDispatch } from 'react-redux';
 import { actions } from '../../store/calorieDataSlice';
@@ -30,7 +30,7 @@ const PercentSlider = ({ macroName, color }) => {
   };
 
   return (
-    <Box sx={{ px: 4, py: 2, border: '1px solid', borderRadius: 1 }}>
+    <Paper sx={{ px: 4, py: 2, borderRadius: 1 }} elevation={3}>
       <Typography
         sx={{ display: 'flex', alignItems: 'center' }}
         variant="h6"
@@ -64,7 +64,7 @@ const PercentSlider = ({ macroName, color }) => {
           />
         </Grid>
       </Grid>
-    </Box>
+    </Paper>
   );
 };
 
