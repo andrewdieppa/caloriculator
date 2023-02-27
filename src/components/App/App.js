@@ -25,9 +25,9 @@ function App() {
           <Grid item xs={6}>
             <MacroPercentages />
           </Grid>
-          {/* <Grid item xs={6}>
+          <Grid item xs={6}>
             <MacroGrams />
-          </Grid> */}
+          </Grid>
         </Grid>
       </Container>
     </ThemeProvider>

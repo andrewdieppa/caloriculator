@@ -9,7 +9,7 @@ const TotalCalories = () => {
   const dispatch = useDispatch();
 
   return (
-    <Paper sx={{ px: 2, py: 1, height: 1 }}>
+    <Paper sx={{ bgcolor: 'background.paperVariant', px: 2, py: 1, height: 1 }}>
       <SectionTitle variant="h5" component="h4" sx={{ mb: 1 }}>
         Total Caloric Intake
       </SectionTitle>
@@ -19,22 +19,24 @@ const TotalCalories = () => {
           justifyContent: 'center',
         }}
       >
-        <TextField
-          type="number"
-          inputProps={{
-            style: { textAlign: 'center' },
-            step: 100,
-          }}
-          InputProps={{
-            startAdornment: 'kcal',
-          }}
-          id="Calories"
-          label="Calories"
-          variant="outlined"
-          size="small"
-          value={totalCalories}
-          onChange={e => dispatch(setCalories(e.target.value))}
-        />
+        <Paper sx={{ p: 2 }} elevation={3}>
+          <TextField
+            type="number"
+            inputProps={{
+              style: { textAlign: 'center' },
+              step: 100,
+            }}
+            InputProps={{
+              startAdornment: 'kcal',
+            }}
+            id="Calories"
+            label="Calories"
+            variant="outlined"
+            size="large"
+            value={totalCalories}
+            onChange={e => dispatch(setCalories(e.target.value))}
+          />
+        </Paper>
       </Box>
     </Paper>
   );
