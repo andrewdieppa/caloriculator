@@ -1,7 +1,5 @@
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
-import ProteinPercentSlider from './ProteinPercentSlider';
-import CarbPercentSlider from './CarbPercentSlider';
-import FatPercentSlider from './FatPercentSlider';
+import PercentSlider from './PercentSlider';
 import { Paper, Box, Stack, Typography, Alert } from '@mui/material';
 import { Percent } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
@@ -28,9 +26,9 @@ const MacroPercentages = () => {
         <SectionTitle variant="h5" component="h4" sx={{ mb: 1 }}>
           Macro Percentages
         </SectionTitle>
-        <ProteinPercentSlider color={sliderColor} />
-        <CarbPercentSlider color={sliderColor} />
-        <FatPercentSlider color={sliderColor} />
+        <PercentSlider macroName={'protein'} color={sliderColor} />
+        <PercentSlider macroName={'carb'} color={sliderColor} />
+        <PercentSlider macroName={'fat'} color={sliderColor} />
         <Typography variant="h6" component="h5">
           <Box display={'flex'} alignItems={'center'}>
             Total: {totalMacroPerc}
