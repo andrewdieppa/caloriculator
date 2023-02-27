@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
 import MacroGramsCard from './MacroGramsCard';
-import { Typography, Paper, Stack, Divider } from '@mui/material';
+import { Paper, Stack, Divider } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setGrams } from '../../store/calorieDataSlice';
 

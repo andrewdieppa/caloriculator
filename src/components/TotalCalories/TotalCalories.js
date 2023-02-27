@@ -1,4 +1,3 @@
-import Counter from '../Reusable/Counter/Counter';
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
 import { Paper, Box, TextField } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
