@@ -23,6 +23,7 @@ const TotalCalories = () => {
           type="number"
           inputProps={{
             style: { textAlign: 'center' },
+            step: 100,
           }}
           InputProps={{
             startAdornment: 'kcal',

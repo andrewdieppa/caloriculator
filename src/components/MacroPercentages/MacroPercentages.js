@@ -5,13 +5,10 @@ import FatPercentSlider from './FatPercentSlider';
 import { Paper, Box, Stack, Typography, Alert } from '@mui/material';
 import { Percent } from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
-import TotalCalories from '../TotalCalories/TotalCalories';
 
 const MacroPercentages = () => {
   // bring in the state from the store
-  const { proteinPerc, carbPerc, fatPerc, totalMacroPerc } = useSelector(
-    state => state.calorieData
-  );
+  const { totalMacroPerc } = useSelector(state => state.calorieData);
   // bring in the dispatch function from the store
   const dispatch = useDispatch();
 
