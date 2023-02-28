@@ -1,14 +1,24 @@
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
 import PercentSlider from './PercentSlider';
-import { Paper, Box, Stack, Typography, Alert } from '@mui/material';
-import { Percent } from '@mui/icons-material';
+import { Paper, Box, Stack, Typography, Alert, Zoom } from '@mui/material';
+import {
+  Percent,
+  ArrowUpward,
+  ArrowDownward,
+  ThumbUp,
+} from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
+import {
+  setProteinPerc,
+  setCarbPerc,
+  setFatPerc,
+} from '../../store/calorieDataSlice';
 
 const MacroPercentages = () => {
   // bring in the state from the store
-  const { totalMacroPerc } = useSelector(state => state.calorieData);
-  // bring in the dispatch function from the store
-  const dispatch = useDispatch();
+  const { totalMacroPerc, proteinPerc, carbPerc, fatPerc } = useSelector(
+    state => state.calorieData
+  );
 
   let sliderColor;
 
@@ -26,17 +36,45 @@ const MacroPercentages = () => {
         <SectionTitle variant="h5" component="h4" sx={{ mb: 1 }}>
           Macro Percentages
         </SectionTitle>
-        <PercentSlider macroName={'protein'} color={sliderColor} />
-        <PercentSlider macroName={'carb'} color={sliderColor} />
-        <PercentSlider macroName={'fat'} color={sliderColor} />
-        <Typography variant="h6" component="h5">
-          <Box display={'flex'} alignItems={'center'}>
-            Total: {totalMacroPerc}
-            <Percent />
+        <PercentSlider
+          title="Protein"
+          macroPerc={proteinPerc}
+          setterAction={setProteinPerc}
+          color={sliderColor}
+        />
+        <PercentSlider
+          title="Carbs"
+          macroPerc={carbPerc}
+          setterAction={setCarbPerc}
+          color={sliderColor}
+        />
+        <PercentSlider
+          title="Fat"
+          macroPerc={fatPerc}
+          setterAction={setFatPerc}
+          color={sliderColor}
+        />
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ mr: 1 }}>
+            {totalMacroPerc < 100 && <ArrowUpward color="warning" />}
+            {totalMacroPerc === 100 && <ThumbUp color="secondary" />}
+            {totalMacroPerc > 100 && <ArrowDownward color="error" />}
           </Box>
-        </Typography>
+          <Typography variant="h6" component="h5">
+            <Box display={'flex'} alignItems={'center'}>
+              Total: {totalMacroPerc} <Percent />
+            </Box>
+          </Typography>
+        </Box>
+        {totalMacroPerc < 100 && (
+          <Zoom in={totalMacroPerc < 100}>
+            <Alert severity="warning">Total percentage too low!</Alert>
+          </Zoom>
+        )}
         {totalMacroPerc > 100 && (
-          <Alert severity="warning">Total percentages should equal 100%</Alert>
+          <Zoom in={totalMacroPerc > 100}>
+            <Alert severity="error">Total percentage too high!</Alert>
+          </Zoom>
         )}
       </Stack>
     </Paper>

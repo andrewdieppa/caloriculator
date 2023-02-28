@@ -1,31 +1,26 @@
 import { Paper, Typography, Slider, Input, Grid } from '@mui/material';
 import Percent from '@mui/icons-material/Percent';
-import { useSelector, useDispatch } from 'react-redux';
+import { useDispatch } from 'react-redux';
 import { actions } from '../../store/calorieDataSlice';
 
-const PercentSlider = ({ macroName, color }) => {
-  const capMacroName = macroName.charAt(0).toUpperCase() + macroName.slice(1);
-
-  const macroPerc = useSelector(state => state.calorieData[`${macroName}Perc`]);
+const PercentSlider = ({ title, macroPerc, setterAction, color }) => {
   const dispatch = useDispatch();
 
   const handleSliderChange = (event, newValue) => {
-    dispatch(actions[`set${capMacroName}Perc`](newValue));
+    dispatch(setterAction(newValue));
   };
 
   const handleInputChange = event => {
     dispatch(
-      actions[`set${capMacroName}Perc`](
-        event.target.value === '' ? 0 : Number(event.target.value)
-      )
+      setterAction(event.target.value === '' ? 0 : Number(event.target.value))
     );
   };
 
   const handleBlur = e => {
     if (e.target.value < 0) {
-      dispatch(actions[`set${capMacroName}Perc`](0));
+      dispatch(setterAction(0));
     } else if (e.target.value > 100) {
-      dispatch(actions[`set${capMacroName}Perc`](100));
+      dispatch(setterAction(100));
     }
   };
 
@@ -37,14 +32,14 @@ const PercentSlider = ({ macroName, color }) => {
         id="input-slider"
         gutterBottom
       >
-        {capMacroName} <Percent />
+        {title} <Percent />
       </Typography>
       <Grid container spacing={2} alignItems="center">
         <Grid item xs>
           <Slider
             value={macroPerc}
             onChange={handleSliderChange}
-            aria-labelledby={`${macroName}-input-slider`}
+            aria-labelledby={`${title}-input-slider`}
             color={color}
           />
         </Grid>
@@ -59,7 +54,7 @@ const PercentSlider = ({ macroName, color }) => {
               min: 0,
               max: 100,
               type: 'number',
-              'aria-labelledby': `${macroName}-input-slider`,
+              'aria-labelledby': `${title}-input-slider`,
             }}
           />
         </Grid>
