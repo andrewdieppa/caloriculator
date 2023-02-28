@@ -2,6 +2,7 @@ import NavAppBar from '../NavAppBar/NavAppBar';
 import MacroPercentages from '../MacroPercentages/MacroPercentages';
 import MacroGrams from '../MacroGrams/MacroGrams';
 import TotalCalories from '../TotalCalories/TotalCalories';
+import Meals from '../Meals/Meals';
 import { Container, Grid } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseLine from '@mui/material/CssBaseline';
@@ -27,6 +28,9 @@ function App() {
           </Grid>
           <Grid item xs={6}>
             <MacroGrams />
+          </Grid>
+          <Grid item xs={12}>
+            <Meals />
           </Grid>
         </Grid>
       </Container>
