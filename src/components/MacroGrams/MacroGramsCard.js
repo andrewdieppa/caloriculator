@@ -7,7 +7,7 @@ const MacroGramsCard = ({ macroLetter, macroGrams }) => {
         paddingX={4}
         paddingY={2}
         direction="row"
-        spacing={2}
+        spacing={{ xs: 1, sm: 2 }}
         alignItems="center"
       >
         <Paper
@@ -15,8 +15,8 @@ const MacroGramsCard = ({ macroLetter, macroGrams }) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            width: '3rem',
-            height: '3rem',
+            width: { xs: '2rem', sm: '3rem' },
+            height: { xs: '2rem', sm: '3rem' },
             borderRadius: '5rem',
             backgroundColor: 'primary.main',
           }}

@@ -3,7 +3,7 @@ import MacroPercentages from '../MacroPercentages/MacroPercentages';
 import MacroGrams from '../MacroGrams/MacroGrams';
 import TotalCalories from '../TotalCalories/TotalCalories';
 import Meals from '../Meals/Meals';
-import { Container, Grid } from '@mui/material';
+import { Container, Grid, Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseLine from '@mui/material/CssBaseline';
 import { useSelector } from 'react-redux';
@@ -18,21 +18,21 @@ function App() {
     <ThemeProvider theme={theme}>
       <CssBaseLine />
       <NavAppBar />
-      <Container>
-        <Grid container spacing={2}>
-          <Grid item xs={12}>
+      <Container maxWidth="sm">
+        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+          <Box sx={{ mb: 2 }}>
             <TotalCalories />
-          </Grid>
-          <Grid item xs={6}>
+          </Box>
+          <Box sx={{ mb: 2 }}>
             <MacroPercentages />
-          </Grid>
-          <Grid item xs={6}>
+          </Box>
+          <Box sx={{ mb: 2 }}>
             <MacroGrams />
-          </Grid>
-          <Grid item xs={12}>
+          </Box>
+          <Box sx={{ mb: 2 }}>
             <Meals />
-          </Grid>
-        </Grid>
+          </Box>
+        </Box>
       </Container>
     </ThemeProvider>
   );

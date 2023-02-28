@@ -8,7 +8,7 @@ const TotalCalories = () => {
   const dispatch = useDispatch();
 
   return (
-    <Paper sx={{ bgcolor: 'background.paperVariant', px: 2, py: 1, height: 1 }}>
+    <Paper sx={{ bgcolor: 'background.paperVariant', px: 2, py: 1 }}>
       <SectionTitle variant="h5" component="h4" sx={{ mb: 1 }}>
         Total Caloric Intake
       </SectionTitle>

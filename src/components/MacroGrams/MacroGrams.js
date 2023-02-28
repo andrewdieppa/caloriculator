@@ -36,11 +36,12 @@ const MacroGrams = () => {
         Macro Grams
       </SectionTitle>
       <Stack
+        direction="row"
         padding={1}
         justifyContent="space-evenly"
         alignItems="center"
         divider={<Divider orientation="vertical" flexItem />}
-        spacing={2}
+        spacing={{ xs: 1, sm: 2 }}
       >
         <MacroGramsCard macroLetter="P" macroGrams={proteinGrams} />
         <MacroGramsCard macroLetter="C" macroGrams={carbGrams} />
