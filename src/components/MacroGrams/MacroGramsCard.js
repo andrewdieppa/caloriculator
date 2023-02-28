@@ -4,8 +4,8 @@ const MacroGramsCard = ({ macroLetter, macroGrams }) => {
   return (
     <Paper elevation={3}>
       <Stack
-        paddingX={4}
-        paddingY={2}
+        paddingX={{ xs: 2, sm: 4 }}
+        paddingY={{ xs: 1, sm: 2 }}
         direction="row"
         spacing={{ xs: 1, sm: 2 }}
         alignItems="center"
@@ -15,8 +15,8 @@ const MacroGramsCard = ({ macroLetter, macroGrams }) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            width: { xs: '2rem', sm: '3rem' },
-            height: { xs: '2rem', sm: '3rem' },
+            width: { xs: '1.5rem', sm: '3rem' },
+            height: { xs: '1.5rem', sm: '3rem' },
             borderRadius: '5rem',
             backgroundColor: 'primary.main',
           }}

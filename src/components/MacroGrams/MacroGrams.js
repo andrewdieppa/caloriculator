@@ -1,7 +1,7 @@
 import { useEffect } from 'react';
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
 import MacroGramsCard from './MacroGramsCard';
-import { Paper, Stack, Divider } from '@mui/material';
+import { Paper, Stack } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setGrams } from '../../store/calorieDataSlice';
 
@@ -40,7 +40,6 @@ const MacroGrams = () => {
         padding={1}
         justifyContent="space-evenly"
         alignItems="center"
-        divider={<Divider orientation="vertical" flexItem />}
         spacing={{ xs: 1, sm: 2 }}
       >
         <MacroGramsCard macroLetter="P" macroGrams={proteinGrams} />

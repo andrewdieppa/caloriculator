@@ -18,7 +18,7 @@ const TotalCalories = () => {
           justifyContent: 'center',
         }}
       >
-        <Paper sx={{ p: 2 }} elevation={3}>
+        <Paper sx={{ p: 2, mb: 1 }} elevation={3}>
           <TextField
             type="number"
             inputProps={{
