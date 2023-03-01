@@ -1,19 +1,29 @@
-import { Paper, Typography, Slider, Input, Grid } from '@mui/material';
-import Percent from '@mui/icons-material/Percent';
+import {
+  Paper,
+  Typography,
+  Slider,
+  Input,
+  Stack,
+  Grid,
+  IconButton,
+} from '@mui/material';
+import {
+  Percent,
+  ArrowCircleLeft,
+  ArrowCircleRight,
+} from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
-import { actions } from '../../store/calorieDataSlice';
 
 const PercentSlider = ({ title, macroPerc, setterAction, color }) => {
   const dispatch = useDispatch();
+  const stepAmt = 5;
 
   const handleSliderChange = (event, newValue) => {
     dispatch(setterAction(newValue));
   };
 
   const handleInputChange = event => {
-    dispatch(
-      setterAction(event.target.value === '' ? 0 : Number(event.target.value))
-    );
+    dispatch(setterAction(Number(event.target.value)));
   };
 
   const handleBlur = e => {
@@ -21,6 +31,20 @@ const PercentSlider = ({ title, macroPerc, setterAction, color }) => {
       dispatch(setterAction(0));
     } else if (e.target.value > 100) {
       dispatch(setterAction(100));
+    }
+  };
+
+  const handleLeftClick = () => {
+    if (macroPerc > 0) {
+      const roundedNum = Math.ceil(macroPerc / stepAmt) * stepAmt;
+      dispatch(setterAction(roundedNum - stepAmt));
+    }
+  };
+
+  const handleRightClick = () => {
+    if (macroPerc < 100) {
+      const roundedNum = Math.floor(macroPerc / stepAmt) * stepAmt;
+      dispatch(setterAction(roundedNum + stepAmt));
     }
   };
 
@@ -34,7 +58,7 @@ const PercentSlider = ({ title, macroPerc, setterAction, color }) => {
       >
         {title} <Percent />
       </Typography>
-      <Grid container spacing={2} alignItems="center">
+      <Grid container spacing={3} alignItems="center">
         <Grid item xs>
           <Slider
             value={macroPerc}
@@ -45,18 +69,28 @@ const PercentSlider = ({ title, macroPerc, setterAction, color }) => {
         </Grid>
         <Grid item>
           <Input
+            readOnly
+            disableUnderline
             value={macroPerc}
             size="small"
             onChange={handleInputChange}
             onBlur={handleBlur}
             inputProps={{
-              step: 5,
+              style: { fontWeight: 'bold' },
               min: 0,
               max: 100,
               type: 'number',
               'aria-labelledby': `${title}-input-slider`,
             }}
           />
+          <Stack sx={{ display: 'inline-block' }}>
+            <IconButton onClick={handleLeftClick}>
+              <ArrowCircleLeft fontSize="large" />
+            </IconButton>
+            <IconButton onClick={handleRightClick}>
+              <ArrowCircleRight fontSize="large" />
+            </IconButton>
+          </Stack>
         </Grid>
       </Grid>
     </Paper>

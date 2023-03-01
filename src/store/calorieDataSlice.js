@@ -1,7 +1,7 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  totalCalories: 0,
+  totalCalories: '',
   totalMacroPerc: 0,
   proteinPerc: 0,
   carbPerc: 0,
