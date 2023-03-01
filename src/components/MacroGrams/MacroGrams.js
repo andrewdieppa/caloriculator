@@ -32,12 +32,12 @@ const MacroGrams = () => {
 
   return (
     <Paper sx={{ bgcolor: 'background.paperVariant', px: 2, py: 1 }}>
-      <SectionTitle variant="h5" component="h4" sx={{ mb: 1 }}>
+      <SectionTitle variant="h5" component="h4">
         Macro Grams
       </SectionTitle>
       <Stack
         direction="row"
-        padding={1}
+        paddingBottom={1}
         justifyContent="space-evenly"
         alignItems="center"
         spacing={{ xs: 1, sm: 2 }}

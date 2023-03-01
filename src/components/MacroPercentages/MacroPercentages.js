@@ -32,10 +32,10 @@ const MacroPercentages = () => {
 
   return (
     <Paper sx={{ bgcolor: 'background.paperVariant', px: 2, py: 1 }}>
-      <Stack spacing={1}>
-        <SectionTitle variant="h5" component="h4" sx={{ mb: 1 }}>
-          Macro Percentages
-        </SectionTitle>
+      <SectionTitle variant="h5" component="h4">
+        Macro Percentages
+      </SectionTitle>
+      <Stack spacing={1} sx={{ pb: 1 }}>
         <PercentSlider
           title="Protein"
           macroPerc={proteinPerc}
