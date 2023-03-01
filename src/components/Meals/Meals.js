@@ -1,13 +1,30 @@
-import { Stack, Paper, Chip, Avatar, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
+import { useEffect } from 'react';
+import { Stack, Paper, Chip, Avatar, Typography, Box } from '@mui/material';
 import MacroChip from './MacroChip';
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { updateMealMacros, updateMealCalories } from '../../store/mealsSlice';
 
 const Meals = () => {
-  const theme = useTheme();
+  const dispatch = useDispatch();
 
-  const meals = useSelector(state => state.mealsData.meals);
+  const { meals, numMeals } = useSelector(state => state.mealsData);
+
+  const { totalCalories, proteinGrams, carbGrams, fatGrams } = useSelector(
+    state => state.calorieData
+  );
+
+  useEffect(() => {
+    dispatch(
+      updateMealMacros({
+        pGrams: proteinGrams,
+        cGrams: carbGrams,
+        fGrams: fatGrams,
+      })
+    );
+
+    dispatch(updateMealCalories(totalCalories));
+  }, [proteinGrams, carbGrams, fatGrams]);
 
   return (
     <Paper sx={{ bgcolor: 'background.paperVariant', px: 2, pt: 1, pb: 2 }}>
@@ -29,14 +46,30 @@ const Meals = () => {
               py: 2,
             }}
           >
-            <Stack direction={'row'} justifyContent="space-around">
+            <Stack
+              direction={'row'}
+              justifyContent="space-around"
+              marginBottom={2}
+            >
               <MacroChip avatarLetter="P" macroGrams={meals[0].proteinGrams} />
               <MacroChip avatarLetter="C" macroGrams={meals[0].carbGrams} />
               <MacroChip avatarLetter="F" macroGrams={meals[0].fatGrams} />
             </Stack>
+            <Box
+              sx={{
+                display: 'flex',
+                justifyContent: 'center',
+                alignItems: 'center',
+              }}
+            >
+              <Typography fontWeight={'bold'}>
+                {meals[0].calories.toFixed(0)} kcal
+              </Typography>
+            </Box>
           </Paper>
         </Paper>
       </Stack>
+      {/* End of Future Meal component */}
     </Paper>
   );
 };

@@ -15,8 +15,8 @@ const MacroGramsCard = ({ macroLetter, macroGrams }) => {
             display: 'flex',
             justifyContent: 'center',
             alignItems: 'center',
-            width: { xs: '1.5rem', sm: '3rem' },
-            height: { xs: '1.5rem', sm: '3rem' },
+            width: { xs: '1.5rem', sm: '2rem' },
+            height: { xs: '1.5rem', sm: '2rem' },
             borderRadius: '5rem',
             backgroundColor: 'primary.main',
           }}
