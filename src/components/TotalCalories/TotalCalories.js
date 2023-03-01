@@ -22,7 +22,7 @@ const TotalCalories = () => {
           <TextField
             type="number"
             inputProps={{
-              style: { textAlign: 'center' },
+              style: { textAlign: 'center', fontWeight: 'bold' },
               step: 100,
             }}
             InputProps={{
