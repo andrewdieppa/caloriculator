@@ -1,10 +1,18 @@
 import { useEffect } from 'react';
-import { Stack, Paper, Chip, Avatar, Typography, Box } from '@mui/material';
+import {
+  Stack,
+  Paper,
+  Chip,
+  Avatar,
+  Typography,
+  Box,
+  Button,
+} from '@mui/material';
 import MacroChip from './MacroChip';
 import MealsList from './MealsList';
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
 import { useSelector, useDispatch } from 'react-redux';
-import { updateMealMacros, updateMealCalories } from '../../store/mealsSlice';
+import { autoBalanceMealMacros } from '../../store/mealsSlice';
 
 const Meals = () => {
   const dispatch = useDispatch();
@@ -15,12 +23,25 @@ const Meals = () => {
     state => state.calorieData
   );
 
-  useEffect(() => {
-    dispatch(updateMealCalories(totalCalories));
-  }, [proteinGrams, carbGrams, fatGrams]);
+  useEffect(() => {}, [proteinGrams, carbGrams, fatGrams]);
 
   return (
-    <Paper sx={{ bgcolor: 'background.paperVariant', px: 2, pt: 1, pb: 2 }}>
+    <Paper
+      sx={{
+        position: 'relative',
+        bgcolor: 'background.paperVariant',
+        px: 2,
+        pt: 1,
+        pb: 2,
+      }}
+    >
+      <Button
+        sx={{ position: 'absolute', right: '15px', top: '6px' }}
+        size="small"
+        onClick={() => dispatch(autoBalanceMealMacros())}
+      >
+        Auto Balance
+      </Button>
       <SectionTitle variant="h5" component="h4">
         Meals
       </SectionTitle>

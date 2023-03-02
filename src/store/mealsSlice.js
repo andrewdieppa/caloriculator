@@ -73,12 +73,26 @@ export const mealsSlice = createSlice({
         action.payload.macroGrams;
     },
     autoBalanceMealMacros: (state, action) => {
-      state.meals.forEach(meal => {
-        meal.proteinGrams = action.payload.pGrams / state.numMeals;
-        meal.carbGrams = action.payload.cGrams / state.numMeals;
-        meal.fatGrams = action.payload.fGrams / state.numMeals;
-        meal.calories = action.payload / state.numMeals;
-      });
+      let balancedPerc = Number(Math.floor(100 / state.numMeals));
+
+      if (100 % state.numMeals !== 0) {
+        let remainder = 100 % state.numMeals;
+        if (remainder !== 0) {
+          state.meals.forEach(meal => {
+            meal.proteinPerc = remainder > 0 ? balancedPerc + 1 : balancedPerc;
+            meal.carbPerc = remainder > 0 ? balancedPerc + 1 : balancedPerc;
+            meal.fatPerc = remainder > 0 ? balancedPerc + 1 : balancedPerc;
+
+            remainder--;
+          });
+        } else {
+          state.meals.forEach(meal => {
+            meal.proteinPerc = balancedPerc;
+            meal.carbPerc = balancedPerc;
+            meal.fatPerc = balancedPerc;
+          });
+        }
+      }
     },
   },
 });
@@ -93,6 +107,7 @@ export const {
   setFatGrams,
   updateMealCalories,
   updateMealMacros,
+  autoBalanceMealMacros,
 } = mealsSlice.actions;
 
 export const actions = mealsSlice.actions;
