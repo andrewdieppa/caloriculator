@@ -30,6 +30,13 @@ const Meal = ({ meal }) => {
   );
 
   useEffect(() => {
+    const newCalories = Number(
+      meal.proteinGrams * 4 + meal.carbGrams * 4 + meal.fatGrams * 9
+    );
+    dispatch(setCalories({ mealId: meal.id, calories: newCalories }));
+  }, [meal.proteinGrams, meal.carbGrams, meal.fatGrams]);
+
+  useEffect(() => {
     const newMacroValue = Number((meal.proteinPerc / 100) * proteinGrams);
     dispatch(setProteinGrams({ mealId: meal.id, macroGrams: newMacroValue }));
   }, [meal.proteinPerc]);
