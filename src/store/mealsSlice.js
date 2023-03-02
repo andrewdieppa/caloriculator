@@ -49,20 +49,35 @@ export const mealsSlice = createSlice({
       });
     },
     setProteinPerc: (state, action) => {
-      state.meals[action.payload.mealId].proteinPerc =
-        action.payload.proteinPerc;
+      state.meals.find(meal => meal.id === action.payload.mealId).proteinPerc =
+        action.payload.macroPerc;
     },
     setCarbPerc: (state, action) => {
-      state.meals[action.payload.mealId].carbPerc = action.payload.carbPerc;
+      state.meals.find(meal => meal.id === action.payload.mealId).carbPerc =
+        action.payload.macroPerc;
     },
     setFatPerc: (state, action) => {
-      state.meals[action.payload.mealId].fatPerc = action.payload.fatPerc;
+      state.meals.find(meal => meal.id === action.payload.mealId).fatPerc =
+        action.payload.macroPerc;
     },
-    updateMealMacros: (state, action) => {
+    setProteinGrams: (state, action) => {
+      state.meals.find(meal => meal.id === action.payload.mealId).proteinGrams =
+        action.payload.macroGrams;
+    },
+    setCarbGrams: (state, action) => {
+      state.meals.find(meal => meal.id === action.payload.mealId).carbGrams =
+        action.payload.macroGrams;
+    },
+    setFatGrams: (state, action) => {
+      state.meals.find(meal => meal.id === action.payload.mealId).fatGrams =
+        action.payload.macroGrams;
+    },
+    autoBalanceMealMacros: (state, action) => {
       state.meals.forEach(meal => {
         meal.proteinGrams = action.payload.pGrams / state.numMeals;
         meal.carbGrams = action.payload.cGrams / state.numMeals;
         meal.fatGrams = action.payload.fGrams / state.numMeals;
+        meal.calories = action.payload / state.numMeals;
       });
     },
   },
