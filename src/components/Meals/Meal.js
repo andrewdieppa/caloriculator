@@ -1,3 +1,4 @@
+import { useEffect } from 'react';
 import MealMacPercSlider from './MealMacPercSlider';
 import MacroChip from './MacroChip';
 import {
@@ -10,13 +11,39 @@ import {
   AccordionDetails,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
+import { useSelector, useDispatch } from 'react-redux';
 import {
   setProteinPerc,
   setCarbPerc,
   setFatPerc,
+  setProteinGrams,
+  setCarbGrams,
+  setFatGrams,
+  setCalories,
 } from '../../store/mealsSlice';
 
 const Meal = ({ meal }) => {
+  const dispatch = useDispatch();
+
+  const { proteinGrams, carbGrams, fatGrams } = useSelector(
+    state => state.calorieData
+  );
+
+  useEffect(() => {
+    const newMacroValue = Number((meal.proteinPerc / 100) * proteinGrams);
+    dispatch(setProteinGrams({ mealId: meal.id, macroGrams: newMacroValue }));
+  }, [meal.proteinPerc]);
+
+  useEffect(() => {
+    const newMacroValue = Number((meal.carbPerc / 100) * carbGrams);
+    dispatch(setCarbGrams({ mealId: meal.id, macroGrams: newMacroValue }));
+  }, [meal.carbPerc]);
+
+  useEffect(() => {
+    const newMacroValue = Number((meal.fatPerc / 100) * fatGrams);
+    dispatch(setFatGrams({ mealId: meal.id, macroGrams: newMacroValue }));
+  }, [meal.fatPerc]);
+
   return (
     <Paper>
       <Typography textAlign={'center'} variant={'h6'} component="h5">
@@ -32,9 +59,9 @@ const Meal = ({ meal }) => {
         }}
       >
         <Stack direction={'row'} justifyContent="space-around" marginBottom={2}>
-          <MacroChip avatarLetter="P" macroGrams={meal.proteinGrams} />
-          <MacroChip avatarLetter="C" macroGrams={meal.carbGrams} />
-          <MacroChip avatarLetter="F" macroGrams={meal.fatGrams} />
+          <MacroChip avatarLetter="P" macroGrams={+meal.proteinGrams} />
+          <MacroChip avatarLetter="C" macroGrams={+meal.carbGrams} />
+          <MacroChip avatarLetter="F" macroGrams={+meal.fatGrams} />
         </Stack>
         <Box
           sx={{

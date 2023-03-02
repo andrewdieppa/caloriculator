@@ -43,10 +43,9 @@ export const mealsSlice = createSlice({
   name: 'mealsData',
   initialState,
   reducers: {
-    updateMealCalories: (state, action) => {
-      state.meals.forEach(meal => {
-        meal.calories = action.payload / state.numMeals;
-      });
+    setCalories: (state, action) => {
+      state.meals.find(meal => meal.id === action.payload.mealId).calories =
+        action.payload.calories;
     },
     setProteinPerc: (state, action) => {
       state.meals.find(meal => meal.id === action.payload.mealId).proteinPerc =

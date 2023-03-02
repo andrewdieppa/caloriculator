@@ -1,4 +1,3 @@
-import { useEffect } from 'react';
 import {
   Stack,
   Paper,
@@ -23,8 +22,6 @@ const Meals = () => {
     state => state.calorieData
   );
 
-  useEffect(() => {}, [proteinGrams, carbGrams, fatGrams]);
-
   return (
     <Paper
       sx={{
@@ -46,7 +43,6 @@ const Meals = () => {
         Meals
       </SectionTitle>
       <MealsList meals={meals} />
-      {/* End of Future Meal component */}
     </Paper>
   );
 };
