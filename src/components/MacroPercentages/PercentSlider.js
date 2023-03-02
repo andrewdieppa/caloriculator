@@ -61,6 +61,7 @@ const PercentSlider = ({ title, macroPerc, setterAction, color }) => {
       <Grid container spacing={3} alignItems="center">
         <Grid item xs>
           <Slider
+            valueLabelDisplay="auto"
             value={macroPerc}
             onChange={handleSliderChange}
             aria-labelledby={`${title}-input-slider`}

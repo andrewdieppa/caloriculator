@@ -1,6 +1,7 @@
 import MacroAvatar from '../UI/MacroAvatar';
 import {
   Paper,
+  Box,
   Typography,
   Slider,
   Input,
@@ -12,12 +13,16 @@ import {
   Percent,
   ArrowCircleLeft,
   ArrowCircleRight,
+  ArrowUpward,
+  ArrowDownward,
+  ThumbUp,
 } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 
 const MealMacPercSlider = ({
   title,
   macroPerc,
+  macroPercTotal,
   mealId,
   setterAction,
   color,
@@ -61,12 +66,18 @@ const MealMacPercSlider = ({
   };
 
   return (
-    <Grid sx={{ px: 2, py: 1 }} container spacing={3} alignItems="center">
+    <Grid container spacing={3} alignItems="center">
+      <Grid item>
+        {macroPercTotal < 100 && <ArrowUpward color="warning" />}
+        {macroPercTotal === 100 && <ThumbUp color="secondary" />}
+        {macroPercTotal > 100 && <ArrowDownward color="error" />}
+      </Grid>
       <Grid item>
         <MacroAvatar avatarLetter={letterLabel} size="small" />
       </Grid>
       <Grid item xs>
         <Slider
+          valueLabelDisplay="auto"
           size="small"
           value={macroPerc}
           onChange={handleSliderChange}

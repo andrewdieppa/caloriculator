@@ -37,6 +37,9 @@ const initialState = {
     },
   ],
   numMeals: 3,
+  proteinPercTotal: 0,
+  carbPercTotal: 0,
+  fatPercTotal: 0,
 };
 
 export const mealsSlice = createSlice({
@@ -71,6 +74,27 @@ export const mealsSlice = createSlice({
       state.meals.find(meal => meal.id === action.payload.mealId).fatGrams =
         action.payload.macroGrams;
     },
+    setProteinPercTotal: state => {
+      const percTotal = state.meals.reduce((acc, meal) => {
+        return acc + meal.proteinPerc;
+      }, 0);
+
+      state.proteinPercTotal = percTotal;
+    },
+    setCarbPercTotal: state => {
+      const percTotal = state.meals.reduce((acc, meal) => {
+        return acc + meal.carbPerc;
+      }, 0);
+
+      state.carbPercTotal = percTotal;
+    },
+    setFatPercTotal: state => {
+      const percTotal = state.meals.reduce((acc, meal) => {
+        return acc + meal.fatPerc;
+      }, 0);
+
+      state.fatPercTotal = percTotal;
+    },
     autoBalanceMealMacros: (state, action) => {
       let balancedPerc = Number(Math.floor(100 / state.numMeals));
 
@@ -104,6 +128,9 @@ export const {
   setProteinGrams,
   setCarbGrams,
   setFatGrams,
+  setProteinPercTotal,
+  setCarbPercTotal,
+  setFatPercTotal,
   updateMealCalories,
   updateMealMacros,
   autoBalanceMealMacros,
