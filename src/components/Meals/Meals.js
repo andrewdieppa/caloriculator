@@ -1,3 +1,5 @@
+import EditButtonBar from './EditButtonBar';
+import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
 import {
   Stack,
   Paper,
@@ -6,10 +8,10 @@ import {
   Typography,
   Box,
   Button,
+  Grid,
 } from '@mui/material';
 import MacroChip from './MacroChip';
 import MealsList from './MealsList';
-import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
 import { useSelector, useDispatch } from 'react-redux';
 import { autoBalanceMealMacros } from '../../store/mealsSlice';
 
@@ -42,6 +44,7 @@ const Meals = () => {
       <SectionTitle variant="h5" component="h4">
         Meals
       </SectionTitle>
+      <EditButtonBar />
       <MealsList meals={meals} />
     </Paper>
   );
