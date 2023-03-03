@@ -2,6 +2,7 @@ import MacroAvatar from '../UI/MacroAvatar';
 import {
   Paper,
   Box,
+  Divider,
   Typography,
   Slider,
   Input,
@@ -20,6 +21,7 @@ import {
 import { useDispatch } from 'react-redux';
 
 const MealMacPercSlider = ({
+  modal,
   title,
   macroPerc,
   macroPercTotal,
@@ -65,53 +67,106 @@ const MealMacPercSlider = ({
     }
   };
 
-  return (
-    <Grid container spacing={3} alignItems="center">
-      <Grid item>
-        {macroPercTotal < 100 && <ArrowUpward color="warning" />}
-        {macroPercTotal === 100 && <ThumbUp color="secondary" />}
-        {macroPercTotal > 100 && <ArrowDownward color="error" />}
+  {
+    /* --------- Normal Render --------- */
+  }
+
+  if (!modal) {
+    return (
+      <Grid container spacing={3} alignItems="center">
+        <Grid item>
+          {macroPercTotal < 100 && <ArrowUpward color="warning" />}
+          {macroPercTotal === 100 && <ThumbUp color="secondary" />}
+          {macroPercTotal > 100 && <ArrowDownward color="error" />}
+        </Grid>
+        <Grid item>
+          <MacroAvatar avatarLetter={letterLabel} size="small" />
+        </Grid>
+        <Grid item xs>
+          <Slider
+            valueLabelDisplay="auto"
+            size="small"
+            value={macroPerc}
+            onChange={handleSliderChange}
+            aria-labelledby={`${title}-input-slider`}
+            color={color}
+          />
+        </Grid>
+        <Grid item>
+          <Input
+            readOnly
+            disableUnderline
+            value={macroPerc}
+            size="small"
+            onChange={handleInputChange}
+            onBlur={handleBlur}
+            inputProps={{
+              style: { fontWeight: 'bold' },
+              min: 0,
+              max: 100,
+              type: 'number',
+              'aria-labelledby': `${title}-input-slider`,
+            }}
+          />
+          <Stack sx={{ display: 'inline-block' }}>
+            <IconButton onClick={handleLeftClick}>
+              <ArrowCircleLeft />
+            </IconButton>
+            <IconButton onClick={handleRightClick}>
+              <ArrowCircleRight />
+            </IconButton>
+          </Stack>
+        </Grid>
       </Grid>
-      <Grid item>
-        <MacroAvatar avatarLetter={letterLabel} size="small" />
-      </Grid>
-      <Grid item xs>
-        <Slider
-          valueLabelDisplay="auto"
-          size="small"
-          value={macroPerc}
-          onChange={handleSliderChange}
-          aria-labelledby={`${title}-input-slider`}
-          color={color}
-        />
-      </Grid>
-      <Grid item>
-        <Input
-          readOnly
-          disableUnderline
-          value={macroPerc}
-          size="small"
-          onChange={handleInputChange}
-          onBlur={handleBlur}
-          inputProps={{
-            style: { fontWeight: 'bold' },
-            min: 0,
-            max: 100,
-            type: 'number',
-            'aria-labelledby': `${title}-input-slider`,
-          }}
-        />
-        <Stack sx={{ display: 'inline-block' }}>
-          <IconButton onClick={handleLeftClick}>
-            <ArrowCircleLeft />
-          </IconButton>
-          <IconButton onClick={handleRightClick}>
-            <ArrowCircleRight />
-          </IconButton>
-        </Stack>
-      </Grid>
-    </Grid>
-  );
+    );
+    {
+      /* --------- Modal Render --------- */
+    }
+  } else {
+    return (
+      <>
+        <Typography variant="subtitle2">{title}</Typography>
+        <Grid container spacing={3} alignItems="center">
+          <Grid item xs>
+            <Slider
+              valueLabelDisplay="auto"
+              size="small"
+              value={macroPerc}
+              onChange={handleSliderChange}
+              aria-labelledby={`${title}-input-slider`}
+              color={color}
+            />
+          </Grid>
+          <Grid item>
+            <Input
+              readOnly
+              disableUnderline
+              value={macroPerc}
+              size="small"
+              onChange={handleInputChange}
+              onBlur={handleBlur}
+              inputProps={{
+                style: { fontWeight: 'bold' },
+                min: 0,
+                max: 100,
+                type: 'number',
+                'aria-labelledby': `${title}-input-slider`,
+              }}
+            />
+            <Stack sx={{ display: 'inline-block' }}>
+              <IconButton onClick={handleLeftClick}>
+                <ArrowCircleLeft />
+              </IconButton>
+              <IconButton onClick={handleRightClick}>
+                <ArrowCircleRight />
+              </IconButton>
+            </Stack>
+          </Grid>
+        </Grid>
+        <Divider sx={{ mb: 1 }} />
+      </>
+    );
+  }
 };
 
 export default MealMacPercSlider;

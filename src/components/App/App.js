@@ -3,6 +3,7 @@ import MacroPercentages from '../MacroPercentages/MacroPercentages';
 import MacroGrams from '../MacroGrams/MacroGrams';
 import TotalCalories from '../TotalCalories/TotalCalories';
 import Meals from '../Meals/Meals';
+import ProteinModal from '../Modals/ProteinModal';
 import { Container, Grid, Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseLine from '@mui/material/CssBaseline';
@@ -34,6 +35,7 @@ function App() {
           </Box>
         </Box>
       </Container>
+      <ProteinModal />
     </ThemeProvider>
   );
 }
