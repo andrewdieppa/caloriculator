@@ -1,4 +1,5 @@
 import MacroAvatar from '../UI/MacroAvatar';
+import ValidIndicator from '../UI/ValidIndicator';
 import {
   Paper,
   Box,
@@ -75,9 +76,7 @@ const MealMacPercSlider = ({
     return (
       <Grid container spacing={3} alignItems="center">
         <Grid item>
-          {macroPercTotal < 100 && <ArrowUpward color="warning" />}
-          {macroPercTotal === 100 && <ThumbUp color="secondary" />}
-          {macroPercTotal > 100 && <ArrowDownward color="error" />}
+          <ValidIndicator validityVar={macroPercTotal} />
         </Grid>
         <Grid item>
           <MacroAvatar avatarLetter={letterLabel} size="small" />

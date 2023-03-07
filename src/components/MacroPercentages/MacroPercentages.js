@@ -1,5 +1,6 @@
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
 import PercentSlider from './PercentSlider';
+import ValidIndicator from '../UI/ValidIndicator';
 import { Paper, Box, Stack, Typography, Alert, Zoom } from '@mui/material';
 import {
   Percent,
@@ -56,9 +57,7 @@ const MacroPercentages = () => {
         />
         <Box sx={{ display: 'flex', alignItems: 'center' }}>
           <Box sx={{ mr: 1 }}>
-            {totalMacroPerc < 100 && <ArrowUpward color="warning" />}
-            {totalMacroPerc === 100 && <ThumbUp color="secondary" />}
-            {totalMacroPerc > 100 && <ArrowDownward color="error" />}
+            <ValidIndicator validityVar={totalMacroPerc} />
           </Box>
           <Typography variant="h6" component="h5">
             <Box display={'flex'} alignItems={'center'}>

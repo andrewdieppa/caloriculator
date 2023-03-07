@@ -1,5 +1,9 @@
 import { Button, Paper, Stack } from '@mui/material';
-import { toggleProteinModal } from '../../store/uiSlice';
+import {
+  toggleProteinModal,
+  toggleCarbModal,
+  toggleFatModal,
+} from '../../store/uiSlice';
 import { useDispatch } from 'react-redux';
 
 const EditButtonBar = () => {
@@ -18,10 +22,18 @@ const EditButtonBar = () => {
         >
           Protein
         </Button>
-        <Button variant="contained" size="small">
+        <Button
+          variant="contained"
+          size="small"
+          onClick={() => dispatch(toggleCarbModal())}
+        >
           Carbs
         </Button>
-        <Button variant="contained" size="small">
+        <Button
+          variant="contained"
+          size="small"
+          onClick={() => dispatch(toggleFatModal())}
+        >
           Fat
         </Button>
         <Button variant="contained" size="small" color="secondary">

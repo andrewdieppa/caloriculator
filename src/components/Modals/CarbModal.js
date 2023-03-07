@@ -11,15 +11,15 @@ import {
   Divider,
 } from '@mui/material';
 import { Percent } from '@mui/icons-material';
-import { toggleProteinModal } from '../../store/uiSlice';
-import { setProteinPerc } from '../../store/mealsSlice';
+import { toggleCarbModal } from '../../store/uiSlice';
+import { setCarbPerc } from '../../store/mealsSlice';
 
-const ProteinModal = () => {
+const CarbModal = () => {
   const dispatch = useDispatch();
-  const { meals, numMeals, proteinPercTotal } = useSelector(
+  const { meals, numMeals, carbPercTotal } = useSelector(
     state => state.mealsData
   );
-  const { showProteinModal } = useSelector(state => state.ui);
+  const { showCarbModal } = useSelector(state => state.ui);
 
   const style = {
     position: 'absolute',
@@ -38,14 +38,11 @@ const ProteinModal = () => {
   };
 
   return (
-    <Modal
-      open={showProteinModal}
-      onClose={() => dispatch(toggleProteinModal())}
-    >
+    <Modal open={showCarbModal} onClose={() => dispatch(toggleCarbModal())}>
       <>
         <AppBar enableColorOnDark position="fixed" sx={{ py: 2, mb: 2 }}>
           <Typography variant="h6" sx={{ textAlign: 'center' }}>
-            Protein Percentages
+            Carb Percentages
           </Typography>
         </AppBar>
         <Box sx={style}>
@@ -57,9 +54,9 @@ const ProteinModal = () => {
                   key={meal.id}
                   title={meal.name}
                   mealId={meal.id}
-                  macroPerc={meal.proteinPerc}
-                  macroPercTotal={meal.proteinPercTotal}
-                  setterAction={setProteinPerc}
+                  macroPerc={meal.carbPerc}
+                  macroPercTotal={meal.carbPercTotal}
+                  setterAction={setCarbPerc}
                   color="primary"
                 />
               );
@@ -67,11 +64,11 @@ const ProteinModal = () => {
           </Box>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box sx={{ mr: 1 }}>
-              <ValidIndicator validityVar={proteinPercTotal} />
+              <ValidIndicator validityVar={carbPercTotal} />
             </Box>
             <Box display={'flex'} alignItems={'center'}>
               <Typography variant="p" component="p" fontWeight="bold">
-                Total: {proteinPercTotal}
+                Total: {carbPercTotal}
               </Typography>
               <Percent />
             </Box>
@@ -97,7 +94,7 @@ const ProteinModal = () => {
             }}
             variant="contained"
             size="large"
-            onClick={() => dispatch(toggleProteinModal())}
+            onClick={() => dispatch(toggleCarbModal())}
           >
             Done
           </Button>
@@ -107,4 +104,4 @@ const ProteinModal = () => {
   );
 };
 
-export default ProteinModal;
+export default CarbModal;

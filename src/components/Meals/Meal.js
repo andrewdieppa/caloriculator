@@ -47,19 +47,19 @@ const Meal = ({ meal }) => {
     const newMacroValue = Number((meal.proteinPerc / 100) * proteinGrams);
     dispatch(setProteinGrams({ mealId: meal.id, macroGrams: newMacroValue }));
     dispatch(setProteinPercTotal());
-  }, [meal.proteinPerc]);
+  }, [meal.proteinPerc, proteinGrams]);
 
   useEffect(() => {
     const newMacroValue = Number((meal.carbPerc / 100) * carbGrams);
     dispatch(setCarbGrams({ mealId: meal.id, macroGrams: newMacroValue }));
     dispatch(setCarbPercTotal());
-  }, [meal.carbPerc]);
+  }, [meal.carbPerc, carbGrams]);
 
   useEffect(() => {
     const newMacroValue = Number((meal.fatPerc / 100) * fatGrams);
     dispatch(setFatGrams({ mealId: meal.id, macroGrams: newMacroValue }));
     dispatch(setFatPercTotal());
-  }, [meal.fatPerc]);
+  }, [meal.fatPerc, fatGrams]);
 
   return (
     <Paper>
