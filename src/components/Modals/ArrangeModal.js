@@ -11,9 +11,9 @@ import {
   Grow,
 } from '@mui/material';
 import { KeyboardArrowDown, KeyboardArrowUp } from '@mui/icons-material';
-
 import { toggleArrangeModal } from '../../store/uiSlice';
 import { moveMealUp, moveMealDown } from '../../store/mealsSlice';
+import { Flipper, Flipped } from 'react-flip-toolkit';
 
 const ArrangeModal = () => {
   const dispatch = useDispatch();
@@ -49,36 +49,46 @@ const ArrangeModal = () => {
         </AppBar>
         <Box sx={style}>
           <Box sx={{ mt: 5 }}>
-            {meals.map(meal => {
-              return (
-                <Box key={meal.id}>
-                  <Grow in={true} timeout={300}>
-                    <Box
-                      sx={{
-                        display: 'flex',
-                        justifyContent: 'space-between',
-                        alignItems: 'center',
-                      }}
-                    >
-                      <Typography variant="h6">{meal.name}</Typography>
-                      <Stack sx={{ justifySelf: 'center' }}>
-                        <IconButton
-                          onClick={() => dispatch(moveMealUp(meal.id))}
-                        >
-                          <KeyboardArrowUp fontSize="small" />
-                        </IconButton>
-                        <IconButton
-                          onClick={() => dispatch(moveMealDown(meal.id))}
-                        >
-                          <KeyboardArrowDown fontSize="small" />
-                        </IconButton>
-                      </Stack>
-                    </Box>
-                  </Grow>
-                  <Divider />
-                </Box>
-              );
-            })}
+            <Flipper flipKey={meals.map(meal => meal.id).join('')}>
+              <ul style={{ listStyle: 'none', padding: 0, margin: 0 }}>
+                {meals.map(meal => {
+                  return (
+                    <Flipped flipId={meal.id} key={meal.id}>
+                      <li>
+                        <Box>
+                          <Grow in={true} timeout={300}>
+                            <Box
+                              sx={{
+                                display: 'flex',
+                                justifyContent: 'space-between',
+                                alignItems: 'center',
+                              }}
+                            >
+                              <Typography variant="h6">{meal.name}</Typography>
+                              <Stack sx={{ justifySelf: 'center' }}>
+                                <IconButton
+                                  onClick={() => dispatch(moveMealUp(meal.id))}
+                                >
+                                  <KeyboardArrowUp fontSize="small" />
+                                </IconButton>
+                                <IconButton
+                                  onClick={() =>
+                                    dispatch(moveMealDown(meal.id))
+                                  }
+                                >
+                                  <KeyboardArrowDown fontSize="small" />
+                                </IconButton>
+                              </Stack>
+                            </Box>
+                          </Grow>
+                          <Divider />
+                        </Box>
+                      </li>
+                    </Flipped>
+                  );
+                })}
+              </ul>
+            </Flipper>
           </Box>
         </Box>
         {/* Done Button */}
