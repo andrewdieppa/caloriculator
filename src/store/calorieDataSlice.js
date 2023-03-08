@@ -1,7 +1,8 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  totalCalories: 0,
+  totalCalories: '',
+  totalMacroPerc: 0,
   proteinPerc: 0,
   carbPerc: 0,
   fatPerc: 0,
@@ -10,55 +11,41 @@ const initialState = {
   fatGrams: 0,
 };
 
-const macroStepAmount = 5;
-const calorieStepAmount = 100;
-
-const percStepIsValid = (prot, carb, fat) => {
-  return prot + carb + fat + macroStepAmount <= 100;
-};
-
 export const calorieDataSlice = createSlice({
   name: 'calorieData',
   initialState,
   reducers: {
-    incrementCalories: state => {
-      state.totalCalories += calorieStepAmount;
+    setCalories: (state, action) => {
+      state.totalCalories = action.payload;
     },
-    decrementCalories: state => {
-      if (state.totalCalories - calorieStepAmount >= 0) {
-        state.totalCalories -= calorieStepAmount;
-      }
+
+    setProteinPerc: (state, action) => {
+      state.proteinPerc = action.payload;
+      state.totalMacroPerc = state.proteinPerc + state.carbPerc + state.fatPerc;
     },
-    incrementProtein: state => {
-      if (percStepIsValid(state.proteinPerc, state.carbPerc, state.fatPerc)) {
-        state.proteinPerc += macroStepAmount;
-      }
+
+    setCarbPerc: (state, action) => {
+      state.carbPerc = action.payload;
+      state.totalMacroPerc = state.proteinPerc + state.carbPerc + state.fatPerc;
     },
-    decrementProtein: state => {
-      if (state.proteinPerc - macroStepAmount >= 0) {
-        state.proteinPerc -= macroStepAmount;
-      }
+
+    setFatPerc: (state, action) => {
+      state.fatPerc = action.payload;
+      state.totalMacroPerc = state.proteinPerc + state.carbPerc + state.fatPerc;
     },
-    incrementCarb: state => {
-      if (percStepIsValid(state.proteinPerc, state.carbPerc, state.fatPerc)) {
-        state.carbPerc += macroStepAmount;
-      }
+
+    setProteinGrams: (state, action) => {
+      state.proteinGrams = action.payload;
     },
-    decrementCarb: state => {
-      if (state.carbPerc - macroStepAmount >= 0) {
-        state.carbPerc -= macroStepAmount;
-      }
+
+    setCarbGrams: (state, action) => {
+      state.carbGrams = action.payload;
     },
-    incrementFat: state => {
-      if (percStepIsValid(state.proteinPerc, state.carbPerc, state.fatPerc)) {
-        state.fatPerc += macroStepAmount;
-      }
+
+    setFatGrams: (state, action) => {
+      state.fatGrams = action.payload;
     },
-    decrementFat: state => {
-      if (state.fatPerc - macroStepAmount >= 0) {
-        state.fatPerc -= macroStepAmount;
-      }
-    },
+
     setGrams: (state, action) => {
       state.proteinGrams = action.payload[0];
       state.carbGrams = action.payload[1];
@@ -68,15 +55,14 @@ export const calorieDataSlice = createSlice({
 });
 
 export const {
-  incrementCalories,
-  incrementProtein,
-  incrementCarb,
-  incrementFat,
-  decrementCalories,
-  decrementProtein,
-  decrementCarb,
-  decrementFat,
+  setCalories,
   setGrams,
+  setProteinPerc,
+  setCarbPerc,
+  setFatPerc,
+  setProteinGrams,
+  setCarbGrams,
+  setFatGrams,
 } = calorieDataSlice.actions;
 
 export const actions = calorieDataSlice.actions;

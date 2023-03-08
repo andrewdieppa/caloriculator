@@ -1,6 +1,7 @@
 import { useEffect } from 'react';
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
-import { Typography, Paper, Stack, Divider } from '@mui/material';
+import MacroGramsCard from './MacroGramsCard';
+import { Paper, Stack } from '@mui/material';
 import { useSelector, useDispatch } from 'react-redux';
 import { setGrams } from '../../store/calorieDataSlice';
 
@@ -30,25 +31,20 @@ const MacroGrams = () => {
   }, [totalCalories, proteinPerc, carbPerc, fatPerc, dispatch]);
 
   return (
-    <Paper sx={{ px: 2, py: 1 }}>
-      <SectionTitle variant="h5" component="h4" sx={{ mb: 1 }}>
+    <Paper sx={{ bgcolor: 'background.paperVariant', px: 2, py: 1 }}>
+      <SectionTitle variant="h5" component="h4">
         Macro Grams
       </SectionTitle>
       <Stack
-        direction={{ xs: 'column', sm: 'row' }}
+        direction="row"
+        paddingBottom={1}
         justifyContent="space-evenly"
-        divider={<Divider orientation="vertical" flexItem />}
-        spacing={2}
+        alignItems="center"
+        spacing={{ xs: 1, sm: 2 }}
       >
-        <Typography variant="h6" component="h5">
-          Protein: {proteinGrams.toFixed(0)}g
-        </Typography>
-        <Typography variant="h6" component="h5">
-          Carb: {carbGrams.toFixed(0)}g
-        </Typography>
-        <Typography variant="h6" component="h5">
-          Fat: {fatGrams.toFixed(0)}g
-        </Typography>
+        <MacroGramsCard macroLetter="P" macroGrams={proteinGrams} />
+        <MacroGramsCard macroLetter="C" macroGrams={carbGrams} />
+        <MacroGramsCard macroLetter="F" macroGrams={fatGrams} />
       </Stack>
     </Paper>
   );

@@ -20,7 +20,7 @@ const NavAppBar = () => {
 
   return (
     <Box sx={{ flexGrow: 1, mb: 2 }}>
-      <AppBar position="static" enableColorOnDark>
+      <AppBar sx={{ p: { xs: 1, sm: 0 } }} position="static" enableColorOnDark>
         <Toolbar>
           <IconButton
             size="large"

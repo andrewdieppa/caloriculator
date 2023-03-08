@@ -1,59 +1,77 @@
-import Counter from '../Reusable/Counter/Counter';
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
-import { Paper, Grid } from '@mui/material';
-import Percent from '@mui/icons-material/Percent';
+import PercentSlider from './PercentSlider';
+import ValidIndicator from '../UI/ValidIndicator';
+import { Paper, Box, Stack, Typography, Alert, Zoom } from '@mui/material';
+import {
+  Percent,
+  ArrowUpward,
+  ArrowDownward,
+  ThumbUp,
+} from '@mui/icons-material';
 import { useSelector, useDispatch } from 'react-redux';
 import {
-  incrementProtein,
-  incrementCarb,
-  incrementFat,
-  decrementProtein,
-  decrementCarb,
-  decrementFat,
+  setProteinPerc,
+  setCarbPerc,
+  setFatPerc,
 } from '../../store/calorieDataSlice';
 
 const MacroPercentages = () => {
-  const { proteinPerc, carbPerc, fatPerc } = useSelector(
+  // bring in the state from the store
+  const { totalMacroPerc, proteinPerc, carbPerc, fatPerc } = useSelector(
     state => state.calorieData
   );
-  const dispatch = useDispatch();
+
+  let sliderColor;
+
+  if (totalMacroPerc === 100) {
+    sliderColor = 'secondary';
+  } else if (totalMacroPerc > 100) {
+    sliderColor = 'error';
+  } else {
+    sliderColor = 'primary';
+  }
 
   return (
-    <Paper sx={{ px: 2, py: 1 }}>
-      <Grid container spacing={1} justifyContent="space-evenly">
-        <Grid item xs={12}>
-          <SectionTitle variant="h5" component="h4">
-            Macro Percentages
-          </SectionTitle>
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Counter
-            label="Protein"
-            value={proteinPerc}
-            adornment={<Percent />}
-            onDec={dispatch.bind(null, decrementProtein())}
-            onInc={dispatch.bind(null, incrementProtein())}
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Counter
-            label="Carb"
-            value={carbPerc}
-            adornment={<Percent />}
-            onDec={dispatch.bind(null, decrementCarb())}
-            onInc={dispatch.bind(null, incrementCarb())}
-          />
-        </Grid>
-        <Grid item xs={12} sm={4}>
-          <Counter
-            label="Fat"
-            value={fatPerc}
-            adornment={<Percent />}
-            onDec={dispatch.bind(null, decrementFat())}
-            onInc={dispatch.bind(null, incrementFat())}
-          />
-        </Grid>
-      </Grid>
+    <Paper sx={{ bgcolor: 'background.paperVariant', px: 2, py: 1 }}>
+      <SectionTitle variant="h5" component="h4">
+        Macro Percentages
+      </SectionTitle>
+      <Stack spacing={1} sx={{ pb: 1 }}>
+        <PercentSlider
+          title="Protein"
+          macroPerc={proteinPerc}
+          setterAction={setProteinPerc}
+          color={sliderColor}
+        />
+        <PercentSlider
+          title="Carbs"
+          macroPerc={carbPerc}
+          setterAction={setCarbPerc}
+          color={sliderColor}
+        />
+        <PercentSlider
+          title="Fat"
+          macroPerc={fatPerc}
+          setterAction={setFatPerc}
+          color={sliderColor}
+        />
+        <Box sx={{ display: 'flex', alignItems: 'center' }}>
+          <Box sx={{ mr: 1 }}>
+            <ValidIndicator validityVar={totalMacroPerc} />
+          </Box>
+          <Typography variant="h6" component="h5">
+            <Box display={'flex'} alignItems={'center'}>
+              Total: {totalMacroPerc} <Percent />
+            </Box>
+          </Typography>
+        </Box>
+        <Zoom in={totalMacroPerc < 100} unmountOnExit>
+          <Alert severity="warning">Total percentage too low!</Alert>
+        </Zoom>
+        <Zoom in={totalMacroPerc > 100} unmountOnExit>
+          <Alert severity="error">Total percentage too high!</Alert>
+        </Zoom>
+      </Stack>
     </Paper>
   );
 };
