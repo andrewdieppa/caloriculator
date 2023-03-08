@@ -52,7 +52,7 @@ const ArrangeModal = () => {
             {meals.map(meal => {
               return (
                 <Box key={meal.id}>
-                  <Grow in={true} timeout={500}>
+                  <Grow in={true} timeout={300}>
                     <Box
                       sx={{
                         display: 'flex',

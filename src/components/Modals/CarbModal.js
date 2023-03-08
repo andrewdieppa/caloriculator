@@ -47,7 +47,7 @@ const CarbModal = () => {
           </Typography>
         </AppBar>
         <Box sx={style}>
-          <Grow in={true} timeout={500}>
+          <Grow in={true} timeout={300}>
             <Box sx={{ mt: 5 }}>
               {meals.map(meal => {
                 return (
