@@ -55,34 +55,30 @@ const ArrangeModal = () => {
                   return (
                     <Flipped flipId={meal.id} key={meal.id}>
                       <li>
-                        <Box>
-                          <Grow in={true} timeout={300}>
-                            <Box
-                              sx={{
-                                display: 'flex',
-                                justifyContent: 'space-between',
-                                alignItems: 'center',
-                              }}
-                            >
-                              <Typography variant="h6">{meal.name}</Typography>
-                              <Stack sx={{ justifySelf: 'center' }}>
-                                <IconButton
-                                  onClick={() => dispatch(moveMealUp(meal.id))}
-                                >
-                                  <KeyboardArrowUp fontSize="small" />
-                                </IconButton>
-                                <IconButton
-                                  onClick={() =>
-                                    dispatch(moveMealDown(meal.id))
-                                  }
-                                >
-                                  <KeyboardArrowDown fontSize="small" />
-                                </IconButton>
-                              </Stack>
-                            </Box>
-                          </Grow>
-                          <Divider />
-                        </Box>
+                        <Grow in={true} timeout={300}>
+                          <Box
+                            sx={{
+                              display: 'flex',
+                              justifyContent: 'space-between',
+                              alignItems: 'center',
+                            }}
+                          >
+                            <Typography variant="h6">{meal.name}</Typography>
+                            <Stack sx={{ justifySelf: 'center' }}>
+                              <IconButton
+                                onClick={() => dispatch(moveMealUp(meal.id))}
+                              >
+                                <KeyboardArrowUp fontSize="small" />
+                              </IconButton>
+                              <IconButton
+                                onClick={() => dispatch(moveMealDown(meal.id))}
+                              >
+                                <KeyboardArrowDown fontSize="small" />
+                              </IconButton>
+                            </Stack>
+                          </Box>
+                        </Grow>
+                        <Divider />
                       </li>
                     </Flipped>
                   );
