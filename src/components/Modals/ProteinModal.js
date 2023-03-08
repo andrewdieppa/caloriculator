@@ -9,6 +9,7 @@ import {
   Button,
   Typography,
   Divider,
+  Grow,
 } from '@mui/material';
 import { Percent } from '@mui/icons-material';
 import { toggleProteinModal } from '../../store/uiSlice';
@@ -49,22 +50,24 @@ const ProteinModal = () => {
           </Typography>
         </AppBar>
         <Box sx={style}>
-          <Box sx={{ mt: 5 }}>
-            {meals.map(meal => {
-              return (
-                <MealMacPercSlider
-                  modal
-                  key={meal.id}
-                  title={meal.name}
-                  mealId={meal.id}
-                  macroPerc={meal.proteinPerc}
-                  macroPercTotal={meal.proteinPercTotal}
-                  setterAction={setProteinPerc}
-                  color="primary"
-                />
-              );
-            })}
-          </Box>
+          <Grow in={true} timeout={500}>
+            <Box sx={{ mt: 5 }}>
+              {meals.map(meal => {
+                return (
+                  <MealMacPercSlider
+                    modal
+                    key={meal.id}
+                    title={meal.name}
+                    mealId={meal.id}
+                    macroPerc={meal.proteinPerc}
+                    macroPercTotal={meal.proteinPercTotal}
+                    setterAction={setProteinPerc}
+                    color="primary"
+                  />
+                );
+              })}
+            </Box>
+          </Grow>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box sx={{ mr: 1 }}>
               <ValidIndicator validityVar={proteinPercTotal} />

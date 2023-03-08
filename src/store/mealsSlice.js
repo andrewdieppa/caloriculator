@@ -4,6 +4,7 @@ const initialState = {
   meals: [
     {
       id: 1,
+      order: 1,
       name: 'Breakfast',
       calories: 0,
       proteinPerc: 0,
@@ -15,6 +16,7 @@ const initialState = {
     },
     {
       id: 2,
+      order: 2,
       name: 'Lunch',
       calories: 0,
       proteinPerc: 0,
@@ -26,6 +28,7 @@ const initialState = {
     },
     {
       id: 3,
+      order: 3,
       name: 'Dinner',
       calories: 0,
       proteinPerc: 0,
@@ -117,6 +120,32 @@ export const mealsSlice = createSlice({
         }
       }
     },
+    moveMealUp: (state, action) => {
+      const selectedMeal = state.meals.find(meal => meal.id === action.payload);
+      if (selectedMeal.order === 1) return;
+
+      const adjacentMeal = state.meals.find(
+        meal => meal.order === selectedMeal.order - 1
+      );
+
+      selectedMeal.order--;
+      adjacentMeal.order++;
+
+      state.meals.sort((a, b) => a.order - b.order);
+    },
+    moveMealDown: (state, action) => {
+      const selectedMeal = state.meals.find(meal => meal.id === action.payload);
+      if (selectedMeal.order === state.numMeals) return;
+
+      const adjacentMeal = state.meals.find(
+        meal => meal.order === selectedMeal.order + 1
+      );
+
+      selectedMeal.order++;
+      adjacentMeal.order--;
+
+      state.meals.sort((a, b) => a.order - b.order);
+    },
   },
 });
 
@@ -134,6 +163,8 @@ export const {
   updateMealCalories,
   updateMealMacros,
   autoBalanceMealMacros,
+  moveMealUp,
+  moveMealDown,
 } = mealsSlice.actions;
 
 export const actions = mealsSlice.actions;

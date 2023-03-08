@@ -3,6 +3,7 @@ import {
   toggleProteinModal,
   toggleCarbModal,
   toggleFatModal,
+  toggleArrangeModal,
 } from '../../store/uiSlice';
 import { useDispatch } from 'react-redux';
 
@@ -36,7 +37,12 @@ const EditButtonBar = () => {
         >
           Fat
         </Button>
-        <Button variant="contained" size="small" color="secondary">
+        <Button
+          variant="contained"
+          size="small"
+          color="secondary"
+          onClick={() => dispatch(toggleArrangeModal())}
+        >
           Arrange
         </Button>
       </Stack>

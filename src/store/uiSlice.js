@@ -24,6 +24,9 @@ export const uiSlice = createSlice({
     toggleFatModal: state => {
       state.showFatModal = !state.showFatModal;
     },
+    toggleArrangeModal: state => {
+      state.showArrangeModal = !state.showArrangeModal;
+    },
   },
 });
 
@@ -32,5 +35,6 @@ export const {
   toggleProteinModal,
   toggleCarbModal,
   toggleFatModal,
+  toggleArrangeModal,
 } = uiSlice.actions;
 export default uiSlice.reducer;

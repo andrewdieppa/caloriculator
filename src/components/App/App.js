@@ -6,6 +6,7 @@ import Meals from '../Meals/Meals';
 import ProteinModal from '../Modals/ProteinModal';
 import CarbModal from '../Modals/CarbModal';
 import FatModal from '../Modals/FatModal';
+import ArrangeModal from '../Modals/ArrangeModal';
 import { Container, Grid, Box } from '@mui/material';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseLine from '@mui/material/CssBaseline';
@@ -40,6 +41,7 @@ function App() {
       <ProteinModal />
       <CarbModal />
       <FatModal />
+      <ArrangeModal />
     </ThemeProvider>
   );
 }

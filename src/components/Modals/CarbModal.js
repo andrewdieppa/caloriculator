@@ -9,6 +9,7 @@ import {
   Button,
   Typography,
   Divider,
+  Grow,
 } from '@mui/material';
 import { Percent } from '@mui/icons-material';
 import { toggleCarbModal } from '../../store/uiSlice';
@@ -46,22 +47,24 @@ const CarbModal = () => {
           </Typography>
         </AppBar>
         <Box sx={style}>
-          <Box sx={{ mt: 5 }}>
-            {meals.map(meal => {
-              return (
-                <MealMacPercSlider
-                  modal
-                  key={meal.id}
-                  title={meal.name}
-                  mealId={meal.id}
-                  macroPerc={meal.carbPerc}
-                  macroPercTotal={meal.carbPercTotal}
-                  setterAction={setCarbPerc}
-                  color="primary"
-                />
-              );
-            })}
-          </Box>
+          <Grow in={true} timeout={500}>
+            <Box sx={{ mt: 5 }}>
+              {meals.map(meal => {
+                return (
+                  <MealMacPercSlider
+                    modal
+                    key={meal.id}
+                    title={meal.name}
+                    mealId={meal.id}
+                    macroPerc={meal.carbPerc}
+                    macroPercTotal={meal.carbPercTotal}
+                    setterAction={setCarbPerc}
+                    color="primary"
+                  />
+                );
+              })}
+            </Box>
+          </Grow>
           <Box sx={{ display: 'flex', alignItems: 'center' }}>
             <Box sx={{ mr: 1 }}>
               <ValidIndicator validityVar={carbPercTotal} />

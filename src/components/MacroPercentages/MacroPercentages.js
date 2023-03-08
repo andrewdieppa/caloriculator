@@ -65,16 +65,12 @@ const MacroPercentages = () => {
             </Box>
           </Typography>
         </Box>
-        {totalMacroPerc < 100 && (
-          <Zoom in={totalMacroPerc < 100}>
-            <Alert severity="warning">Total percentage too low!</Alert>
-          </Zoom>
-        )}
-        {totalMacroPerc > 100 && (
-          <Zoom in={totalMacroPerc > 100}>
-            <Alert severity="error">Total percentage too high!</Alert>
-          </Zoom>
-        )}
+        <Zoom in={totalMacroPerc < 100} unmountOnExit>
+          <Alert severity="warning">Total percentage too low!</Alert>
+        </Zoom>
+        <Zoom in={totalMacroPerc > 100} unmountOnExit>
+          <Alert severity="error">Total percentage too high!</Alert>
+        </Zoom>
       </Stack>
     </Paper>
   );
