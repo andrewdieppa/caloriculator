@@ -47,7 +47,7 @@ const FatModal = () => {
           </Typography>
         </AppBar>
         <Box sx={style}>
-          <Grow in={true} timeout={500}>
+          <Grow in={true} timeout={300}>
             <Box sx={{ mt: 5 }}>
               {meals.map(meal => {
                 return (
@@ -76,31 +76,6 @@ const FatModal = () => {
               <Percent />
             </Box>
           </Box>
-        </Box>
-        {/* Done Button */}
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: 5,
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}
-        >
-          <Button
-            sx={{
-              bgcolor: 'secondary.light',
-              color: 'secondary.dark',
-              '&:hover': {
-                bgcolor: 'secondary.dark',
-                color: 'secondary.light',
-              },
-            }}
-            variant="contained"
-            size="large"
-            onClick={() => dispatch(toggleFatModal())}
-          >
-            Done
-          </Button>
         </Box>
       </>
     </Modal>
