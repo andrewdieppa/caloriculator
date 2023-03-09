@@ -1,4 +1,4 @@
-import { useEffect } from 'react';
+import { useState, useRef, useEffect } from 'react';
 import MealMacPercSlider from './MealMacPercSlider';
 import MacroChip from './MacroChip';
 import {
@@ -9,10 +9,15 @@ import {
   Accordion,
   AccordionSummary,
   AccordionDetails,
+  Chip,
+  TextField,
+  Button,
+  Collapse,
 } from '@mui/material';
 import ExpandMoreIcon from '@mui/icons-material/ExpandMore';
 import { useSelector, useDispatch } from 'react-redux';
 import {
+  setName,
   setProteinPerc,
   setProteinPercTotal,
   setCarbPerc,
@@ -61,16 +66,128 @@ const Meal = ({ meal }) => {
     dispatch(setFatPercTotal());
   }, [meal.fatPerc, fatGrams]);
 
+  // edit mode state and ref
+  const editFieldRef = useRef(null);
+
+  const [editMode, setEditMode] = useState(false);
+  const [titleMode, setTitleMode] = useState(true);
+
+  useEffect(() => {
+    if (editMode) {
+      editFieldRef.current.focus();
+    }
+  }, [editMode]);
+
+  const handleEditClick = () => {
+    setTitleMode(false);
+  };
+
+  const handleCancelClick = () => {
+    setEditMode(false);
+  };
+
+  const handleTitleExit = () => {
+    setEditMode(true);
+  };
+
+  const handleEditExit = () => {
+    setTitleMode(true);
+  };
+
+  const handleConfirmClick = e => {
+    e.preventDefault();
+    if (editFieldRef.current.value === '') {
+      return;
+    }
+    dispatch(setName({ mealId: meal.id, name: editFieldRef.current.value }));
+    setEditMode(false);
+  };
+
+  // conditional title bar content for edit mode
+  // based on transition behavior
+  const titleBarContent = (
+    <>
+      {/* editing */}
+      <Collapse
+        in={editMode}
+        timeout={200}
+        onExited={handleEditExit}
+        unmountOnExit
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            px: 2,
+            py: 1,
+          }}
+        >
+          <form onSubmit={handleConfirmClick}>
+            <Stack>
+              <TextField
+                inputRef={editFieldRef}
+                size="small"
+                id="meal-name"
+                label="Meal Name"
+              />
+              <Box sx={{ display: 'flex', justifyContent: 'space-between' }}>
+                <Button size="small" onClick={handleCancelClick}>
+                  Cancel
+                </Button>
+                <Button type="submit" size="small" onClick={handleConfirmClick}>
+                  Confirm
+                </Button>
+              </Box>
+            </Stack>
+          </form>
+        </Box>
+      </Collapse>
+      {/* not editing */}
+      <Collapse
+        in={titleMode}
+        timeout={200}
+        onExited={handleTitleExit}
+        unmountOnExit
+      >
+        <Box
+          sx={{
+            display: 'flex',
+            justifyContent: 'space-between',
+            px: 2,
+            py: 1,
+          }}
+        >
+          <Typography variant={'h6'} component="h5">
+            {meal.name}
+          </Typography>
+          <Stack direction="row" alignItems="center" spacing={1}>
+            <Chip
+              label="edit"
+              size="small"
+              color="primary"
+              onClick={handleEditClick}
+            />
+            <Chip
+              label="delete"
+              size="small"
+              color="error"
+              onClick={() => {}}
+            />
+          </Stack>
+        </Box>
+      </Collapse>
+    </>
+  );
+
   return (
     <Paper>
-      <Typography textAlign={'center'} variant={'h6'} component="h5">
-        {meal.name}
-      </Typography>
+      {titleBarContent}
+
       <Paper
         sx={{
           bgcolor: 'background.paperVariant',
           mx: 2,
-          my: 1,
+          mb: 1,
           px: 4,
           py: 2,
         }}
