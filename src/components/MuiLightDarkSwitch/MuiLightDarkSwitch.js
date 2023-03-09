@@ -52,7 +52,9 @@ const MaterialUISwitch = styled(Switch)(({ theme }) => ({
 }));
 
 const MuiLightDarkSwitch = ({ onChange }) => {
-  return <MaterialUISwitch sx={{ m: 1 }} onChange={onChange} />;
+  return (
+    <MaterialUISwitch defaultChecked={true} sx={{ m: 1 }} onChange={onChange} />
+  );
 };
 
 export default MuiLightDarkSwitch;

@@ -14,6 +14,7 @@ import MacroChip from './MacroChip';
 import MealsList from './MealsList';
 import { useSelector, useDispatch } from 'react-redux';
 import { autoBalanceMealMacros } from '../../store/mealsSlice';
+import { toggleAddMealModal } from '../../store/uiSlice';
 
 const Meals = () => {
   const dispatch = useDispatch();
@@ -46,6 +47,15 @@ const Meals = () => {
       </SectionTitle>
       <EditButtonBar />
       <MealsList meals={meals} />
+      <Box sx={{ display: 'flex', justifyContent: 'center', mt: 2 }}>
+        <Button
+          variant="contained"
+          size="large"
+          onClick={() => dispatch(toggleAddMealModal())}
+        >
+          Add Meal
+        </Button>
+      </Box>
     </Paper>
   );
 };

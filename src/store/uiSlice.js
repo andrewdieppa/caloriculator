@@ -1,11 +1,12 @@
 import { createSlice } from '@reduxjs/toolkit';
 
 const initialState = {
-  mode: 'light',
+  mode: 'dark',
   showProteinModal: false,
   showCarbModal: false,
   showFatModal: false,
   showArrangeModal: false,
+  showAddMealModal: false,
 };
 
 export const uiSlice = createSlice({
@@ -27,6 +28,9 @@ export const uiSlice = createSlice({
     toggleArrangeModal: state => {
       state.showArrangeModal = !state.showArrangeModal;
     },
+    toggleAddMealModal: state => {
+      state.showAddMealModal = !state.showAddMealModal;
+    },
   },
 });
 
@@ -36,5 +40,6 @@ export const {
   toggleCarbModal,
   toggleFatModal,
   toggleArrangeModal,
+  toggleAddMealModal,
 } = uiSlice.actions;
 export default uiSlice.reducer;

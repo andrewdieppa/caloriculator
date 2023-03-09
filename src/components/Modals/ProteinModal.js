@@ -80,31 +80,6 @@ const ProteinModal = () => {
             </Box>
           </Box>
         </Box>
-        {/* Done Button */}
-        <Box
-          sx={{
-            position: 'absolute',
-            bottom: 5,
-            left: '50%',
-            transform: 'translate(-50%, -50%)',
-          }}
-        >
-          <Button
-            sx={{
-              bgcolor: 'secondary.light',
-              color: 'secondary.dark',
-              '&:hover': {
-                bgcolor: 'secondary.dark',
-                color: 'secondary.light',
-              },
-            }}
-            variant="contained"
-            size="large"
-            onClick={() => dispatch(toggleProteinModal())}
-          >
-            Done
-          </Button>
-        </Box>
       </>
     </Modal>
   );

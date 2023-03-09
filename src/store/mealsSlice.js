@@ -98,26 +98,24 @@ export const mealsSlice = createSlice({
 
       state.fatPercTotal = percTotal;
     },
-    autoBalanceMealMacros: (state, action) => {
+    autoBalanceMealMacros: state => {
       let balancedPerc = Number(Math.floor(100 / state.numMeals));
 
       if (100 % state.numMeals !== 0) {
         let remainder = 100 % state.numMeals;
-        if (remainder !== 0) {
-          state.meals.forEach(meal => {
-            meal.proteinPerc = remainder > 0 ? balancedPerc + 1 : balancedPerc;
-            meal.carbPerc = remainder > 0 ? balancedPerc + 1 : balancedPerc;
-            meal.fatPerc = remainder > 0 ? balancedPerc + 1 : balancedPerc;
+        state.meals.forEach(meal => {
+          meal.proteinPerc = remainder > 0 ? balancedPerc + 1 : balancedPerc;
+          meal.carbPerc = remainder > 0 ? balancedPerc + 1 : balancedPerc;
+          meal.fatPerc = remainder > 0 ? balancedPerc + 1 : balancedPerc;
 
-            remainder--;
-          });
-        } else {
-          state.meals.forEach(meal => {
-            meal.proteinPerc = balancedPerc;
-            meal.carbPerc = balancedPerc;
-            meal.fatPerc = balancedPerc;
-          });
-        }
+          remainder--;
+        });
+      } else {
+        state.meals.forEach(meal => {
+          meal.proteinPerc = balancedPerc;
+          meal.carbPerc = balancedPerc;
+          meal.fatPerc = balancedPerc;
+        });
       }
     },
     moveMealUp: (state, action) => {
@@ -146,6 +144,21 @@ export const mealsSlice = createSlice({
 
       state.meals.sort((a, b) => a.order - b.order);
     },
+    addMeal: (state, action) => {
+      state.numMeals++;
+      state.meals.push({
+        id: state.numMeals,
+        order: state.numMeals,
+        name: `${action.payload}`,
+        calories: 0,
+        proteinPerc: 0,
+        carbPerc: 0,
+        fatPerc: 0,
+        proteinGrams: 0,
+        carbGrams: 0,
+        fatGrams: 0,
+      });
+    },
   },
 });
 
@@ -165,6 +178,7 @@ export const {
   autoBalanceMealMacros,
   moveMealUp,
   moveMealDown,
+  addMeal,
 } = mealsSlice.actions;
 
 export const actions = mealsSlice.actions;

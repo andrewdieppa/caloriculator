@@ -7,7 +7,10 @@ import ProteinModal from '../Modals/ProteinModal';
 import CarbModal from '../Modals/CarbModal';
 import FatModal from '../Modals/FatModal';
 import ArrangeModal from '../Modals/ArrangeModal';
+import AddMealModal from '../Modals/AddMealModal';
+import SnackBarWarning from '../SnackBar/SnackBarWarning';
 import { Container, Grid, Box } from '@mui/material';
+
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseLine from '@mui/material/CssBaseline';
 import { useSelector } from 'react-redux';
@@ -23,7 +26,7 @@ function App() {
       <CssBaseLine />
       <NavAppBar />
       <Container maxWidth="sm">
-        <Box sx={{ display: 'flex', flexDirection: 'column' }}>
+        <Box sx={{ display: 'flex', flexDirection: 'column', mb: 8 }}>
           <Box sx={{ mb: 2 }}>
             <TotalCalories />
           </Box>
@@ -38,10 +41,13 @@ function App() {
           </Box>
         </Box>
       </Container>
+      {/* Modals and Snackbar */}
       <ProteinModal />
       <CarbModal />
       <FatModal />
       <ArrangeModal />
+      <AddMealModal />
+      <SnackBarWarning />
     </ThemeProvider>
   );
 }
