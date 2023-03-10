@@ -27,12 +27,12 @@ const darkTheme = createTheme({
     primary: {
       main: '#eac32d',
       light: '#ffe07d',
-      dark: '#3b2f00',
+      dark: '#B19421',
     },
     secondary: {
       main: '#abcfb0',
       light: '#c7eccb',
-      dark: '#2e4e36',
+      dark: '#8EAB92',
     },
     background: {
       paper: '#3b2f00',

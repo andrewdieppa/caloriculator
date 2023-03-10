@@ -84,7 +84,7 @@ const SnackBarWarning = () => {
       </Snackbar>
       <Snackbar open={isMacroError}>
         <Alert severity="error">
-          <span style={{ fontWeight: 'bold' }}>Macro percentages</span>total is
+          <span style={{ fontWeight: 'bold' }}>Macro percentages</span> total is
           too high!
         </Alert>
       </Snackbar>

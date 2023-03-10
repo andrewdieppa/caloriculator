@@ -1,9 +1,6 @@
 import { Avatar, Typography } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 
 const MacroAvatar = ({ avatarLetter, size }) => {
-  const theme = useTheme();
-
   return (
     <Avatar
       sx={{
