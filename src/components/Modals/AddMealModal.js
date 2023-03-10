@@ -1,4 +1,4 @@
-import { useRef } from 'react';
+import { useRef, useState, useEffect } from 'react';
 import { useSelector, useDispatch } from 'react-redux';
 import {
   Modal,
@@ -36,6 +36,13 @@ const AddMealModal = () => {
     overflow: 'auto',
   };
 
+  const [loaded, setLoaded] = useState(false);
+
+  useEffect(() => {
+    if (!showAddMealModal || !loaded) return;
+    inputRef.current.focus();
+  }, [showAddMealModal, loaded]);
+
   const handleSubmit = e => {
     e.preventDefault();
 
@@ -43,15 +50,18 @@ const AddMealModal = () => {
       return;
     }
 
+    setLoaded(false);
     dispatch(addMeal(inputRef.current.value));
     dispatch(toggleAddMealModal());
   };
 
+  const handleClose = () => {
+    setLoaded(false);
+    dispatch(toggleAddMealModal());
+  };
+
   return (
-    <Modal
-      open={showAddMealModal}
-      onClose={() => dispatch(toggleAddMealModal())}
-    >
+    <Modal open={showAddMealModal} onClose={handleClose}>
       <>
         <AppBar enableColorOnDark position="fixed" sx={{ py: 2, mb: 2 }}>
           <Typography variant="h6" sx={{ textAlign: 'center' }}>
@@ -59,7 +69,7 @@ const AddMealModal = () => {
           </Typography>
         </AppBar>
         <Box sx={style}>
-          <Grow in={true} timeout={300}>
+          <Grow in={true} timeout={300} onEntered={() => setLoaded(true)}>
             <form
               onSubmit={handleSubmit}
               style={{
