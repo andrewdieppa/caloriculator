@@ -1,9 +1,16 @@
 import { createSlice } from '@reduxjs/toolkit';
 
+const uniqueMealId = () => {
+  const uniqueId = `id-${new Date().getTime()}-${Math.floor(
+    Math.random() * 10000
+  )}`;
+  return uniqueId;
+};
+
 const initialState = {
   meals: [
     {
-      id: 1,
+      id: 'id-0000000000000-0001',
       order: 1,
       name: 'Breakfast',
       calories: 0,
@@ -15,7 +22,7 @@ const initialState = {
       fatGrams: 0,
     },
     {
-      id: 2,
+      id: 'id-0000000000000-0002',
       order: 2,
       name: 'Lunch',
       calories: 0,
@@ -27,7 +34,7 @@ const initialState = {
       fatGrams: 0,
     },
     {
-      id: 3,
+      id: 'id-0000000000000-0003',
       order: 3,
       name: 'Dinner',
       calories: 0,
@@ -151,7 +158,7 @@ export const mealsSlice = createSlice({
     addMeal: (state, action) => {
       state.numMeals++;
       state.meals.push({
-        id: state.numMeals,
+        id: uniqueMealId(),
         order: state.numMeals,
         name: `${action.payload}`,
         calories: 0,
@@ -162,6 +169,18 @@ export const mealsSlice = createSlice({
         carbGrams: 0,
         fatGrams: 0,
       });
+    },
+    removeMeal: (state, action) => {
+      const mealIndex = state.meals.findIndex(
+        meal => meal.id === action.payload
+      );
+
+      for (let i = mealIndex + 1; i < state.meals.length; i++) {
+        state.meals[i].order--;
+      }
+
+      state.numMeals--;
+      state.meals = state.meals.filter(meal => meal.id !== action.payload);
     },
   },
 });
@@ -184,6 +203,7 @@ export const {
   moveMealUp,
   moveMealDown,
   addMeal,
+  removeMeal,
 } = mealsSlice.actions;
 
 export const actions = mealsSlice.actions;

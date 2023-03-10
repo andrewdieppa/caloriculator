@@ -41,7 +41,7 @@ function App() {
           </Box>
         </Box>
       </Container>
-      {/* Modals and Snackbar */}
+      {/* Modals and Snackbar alerts */}
       <ProteinModal />
       <CarbModal />
       <FatModal />

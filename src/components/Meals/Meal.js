@@ -28,6 +28,7 @@ import {
   setCarbGrams,
   setFatGrams,
   setCalories,
+  removeMeal,
 } from '../../store/mealsSlice';
 
 const Meal = ({ meal }) => {
@@ -66,11 +67,12 @@ const Meal = ({ meal }) => {
     dispatch(setFatPercTotal());
   }, [meal.fatPerc, fatGrams]);
 
-  // edit mode state and ref
+  // edit/delete state and ref
   const editFieldRef = useRef(null);
 
   const [editMode, setEditMode] = useState(false);
   const [titleMode, setTitleMode] = useState(true);
+  const [deleted, setDeleted] = useState(false);
 
   useEffect(() => {
     if (editMode) {
@@ -103,6 +105,16 @@ const Meal = ({ meal }) => {
     setEditMode(false);
   };
 
+  // delete meal
+  const handleDeleteClick = () => {
+    // dispatch(removeMeal(meal.id));
+    setDeleted(true);
+  };
+
+  const handleDeleteExit = () => {
+    dispatch(removeMeal(meal.id));
+  };
+
   // conditional title bar content for edit mode
   // based on transition behavior
   const titleBarContent = (
@@ -120,6 +132,7 @@ const Meal = ({ meal }) => {
             justifyContent: 'space-between',
             px: 2,
             py: 1,
+            mt: 1,
           }}
         >
           <form onSubmit={handleConfirmClick}>
@@ -171,7 +184,7 @@ const Meal = ({ meal }) => {
               label="delete"
               size="small"
               color="error"
-              onClick={() => {}}
+              onClick={handleDeleteClick}
             />
           </Stack>
         </Box>
@@ -180,73 +193,84 @@ const Meal = ({ meal }) => {
   );
 
   return (
-    <Paper>
-      {titleBarContent}
+    <Collapse
+      in={!deleted}
+      timeout={200}
+      onExited={handleDeleteExit}
+      unmountOnExit
+    >
+      <Paper>
+        {titleBarContent}
 
-      <Paper
-        sx={{
-          bgcolor: 'background.paperVariant',
-          mx: 2,
-          mb: 1,
-          px: 4,
-          py: 2,
-        }}
-      >
-        <Stack direction={'row'} justifyContent="space-around" marginBottom={2}>
-          <MacroChip avatarLetter="P" macroGrams={+meal.proteinGrams} />
-          <MacroChip avatarLetter="C" macroGrams={+meal.carbGrams} />
-          <MacroChip avatarLetter="F" macroGrams={+meal.fatGrams} />
-        </Stack>
-        <Box
+        <Paper
           sx={{
-            display: 'flex',
-            justifyContent: 'center',
-            alignItems: 'center',
+            bgcolor: 'background.paperVariant',
+            mx: 2,
+            mb: 1,
+            px: 4,
+            py: 2,
           }}
         >
-          <Typography fontWeight={'bold'}>
-            {meal.calories.toFixed(0)} kcal
-          </Typography>
-        </Box>
-      </Paper>
-      <Accordion disableGutters>
-        <AccordionSummary
-          expandIcon={<ExpandMoreIcon />}
-          aria-controls="panel1a-content"
-          id="panel1a-header"
-        >
-          <Typography>Meal Macro Percentages</Typography>
-        </AccordionSummary>
-        <AccordionDetails>
-          <Stack>
-            <MealMacPercSlider
-              title={'Protein'}
-              mealId={meal.id}
-              macroPerc={meal.proteinPerc}
-              macroPercTotal={proteinPercTotal}
-              setterAction={setProteinPerc}
-              color="primary"
-            />
-            <MealMacPercSlider
-              title={'Carb'}
-              mealId={meal.id}
-              macroPerc={meal.carbPerc}
-              macroPercTotal={carbPercTotal}
-              setterAction={setCarbPerc}
-              color="primary"
-            />
-            <MealMacPercSlider
-              title={'Fat'}
-              mealId={meal.id}
-              macroPerc={meal.fatPerc}
-              macroPercTotal={fatPercTotal}
-              setterAction={setFatPerc}
-              color="primary"
-            />
+          <Stack
+            direction={'row'}
+            justifyContent="space-around"
+            marginBottom={2}
+          >
+            <MacroChip avatarLetter="P" macroGrams={+meal.proteinGrams} />
+            <MacroChip avatarLetter="C" macroGrams={+meal.carbGrams} />
+            <MacroChip avatarLetter="F" macroGrams={+meal.fatGrams} />
           </Stack>
-        </AccordionDetails>
-      </Accordion>
-    </Paper>
+          <Box
+            sx={{
+              display: 'flex',
+              justifyContent: 'center',
+              alignItems: 'center',
+            }}
+          >
+            <Typography fontWeight={'bold'}>
+              {meal.calories.toFixed(0)} kcal
+            </Typography>
+          </Box>
+        </Paper>
+        <Accordion disableGutters>
+          <AccordionSummary
+            expandIcon={<ExpandMoreIcon />}
+            aria-controls="panel1a-content"
+            id="panel1a-header"
+          >
+            <Typography>Meal Macro Percentages</Typography>
+          </AccordionSummary>
+          <AccordionDetails>
+            <Stack>
+              <MealMacPercSlider
+                title={'Protein'}
+                mealId={meal.id}
+                macroPerc={meal.proteinPerc}
+                macroPercTotal={proteinPercTotal}
+                setterAction={setProteinPerc}
+                color="primary"
+              />
+              <MealMacPercSlider
+                title={'Carb'}
+                mealId={meal.id}
+                macroPerc={meal.carbPerc}
+                macroPercTotal={carbPercTotal}
+                setterAction={setCarbPerc}
+                color="primary"
+              />
+              <MealMacPercSlider
+                title={'Fat'}
+                mealId={meal.id}
+                macroPerc={meal.fatPerc}
+                macroPercTotal={fatPercTotal}
+                setterAction={setFatPerc}
+                color="primary"
+              />
+            </Stack>
+          </AccordionDetails>
+        </Accordion>
+      </Paper>
+    </Collapse>
   );
 };
 
