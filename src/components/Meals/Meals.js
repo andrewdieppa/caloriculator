@@ -1,16 +1,7 @@
 import EditButtonBar from './EditButtonBar';
 import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
-import {
-  Stack,
-  Paper,
-  Chip,
-  Avatar,
-  Typography,
-  Box,
-  Button,
-  Grid,
-} from '@mui/material';
-import MacroChip from './MacroChip';
+import { Paper, Box, Button } from '@mui/material';
+
 import MealsList from './MealsList';
 import { useSelector, useDispatch } from 'react-redux';
 import { autoBalanceMealMacros } from '../../store/mealsSlice';
@@ -19,11 +10,7 @@ import { toggleAddMealModal } from '../../store/uiSlice';
 const Meals = () => {
   const dispatch = useDispatch();
 
-  const { meals, numMeals } = useSelector(state => state.mealsData);
-
-  const { totalCalories, proteinGrams, carbGrams, fatGrams } = useSelector(
-    state => state.calorieData
-  );
+  const { meals } = useSelector(state => state.mealsData);
 
   return (
     <Paper

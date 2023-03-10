@@ -1,8 +1,6 @@
 import MacroAvatar from '../UI/MacroAvatar';
 import ValidIndicator from '../UI/ValidIndicator';
 import {
-  Paper,
-  Box,
   Divider,
   Typography,
   Slider,
@@ -11,14 +9,7 @@ import {
   Grid,
   IconButton,
 } from '@mui/material';
-import {
-  Percent,
-  ArrowCircleLeft,
-  ArrowCircleRight,
-  ArrowUpward,
-  ArrowDownward,
-  ThumbUp,
-} from '@mui/icons-material';
+import { ArrowCircleLeft, ArrowCircleRight } from '@mui/icons-material';
 import { useDispatch } from 'react-redux';
 
 const MealMacPercSlider = ({
@@ -68,9 +59,7 @@ const MealMacPercSlider = ({
     }
   };
 
-  {
-    /* --------- Normal Render --------- */
-  }
+  // --------- Normal Render ---------
 
   if (!modal) {
     return (
@@ -118,9 +107,7 @@ const MealMacPercSlider = ({
         </Grid>
       </Grid>
     );
-    {
-      /* --------- Modal Render --------- */
-    }
+    // --------- Modal Render ---------
   } else {
     return (
       <>

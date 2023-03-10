@@ -47,25 +47,25 @@ const Meal = ({ meal }) => {
       meal.proteinGrams * 4 + meal.carbGrams * 4 + meal.fatGrams * 9
     );
     dispatch(setCalories({ mealId: meal.id, calories: newCalories }));
-  }, [meal.proteinGrams, meal.carbGrams, meal.fatGrams]);
+  }, [meal.proteinGrams, meal.carbGrams, meal.fatGrams, dispatch, meal.id]);
 
   useEffect(() => {
     const newMacroValue = Number((meal.proteinPerc / 100) * proteinGrams);
     dispatch(setProteinGrams({ mealId: meal.id, macroGrams: newMacroValue }));
     dispatch(setProteinPercTotal());
-  }, [meal.proteinPerc, proteinGrams]);
+  }, [meal.proteinPerc, proteinGrams, dispatch, meal.id]);
 
   useEffect(() => {
     const newMacroValue = Number((meal.carbPerc / 100) * carbGrams);
     dispatch(setCarbGrams({ mealId: meal.id, macroGrams: newMacroValue }));
     dispatch(setCarbPercTotal());
-  }, [meal.carbPerc, carbGrams]);
+  }, [meal.carbPerc, carbGrams, dispatch, meal.id]);
 
   useEffect(() => {
     const newMacroValue = Number((meal.fatPerc / 100) * fatGrams);
     dispatch(setFatGrams({ mealId: meal.id, macroGrams: newMacroValue }));
     dispatch(setFatPercTotal());
-  }, [meal.fatPerc, fatGrams]);
+  }, [meal.fatPerc, fatGrams, dispatch, meal.id]);
 
   // edit/delete state and ref
   const editFieldRef = useRef(null);

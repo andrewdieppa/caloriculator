@@ -1,16 +1,7 @@
 import MealMacPercSlider from '../Meals/MealMacPercSlider';
 import ValidIndicator from '../UI/ValidIndicator';
 import { useSelector, useDispatch } from 'react-redux';
-import {
-  Modal,
-  AppBar,
-  Stack,
-  Box,
-  Button,
-  Typography,
-  Divider,
-  Grow,
-} from '@mui/material';
+import { Modal, AppBar, Box, Typography, Grow } from '@mui/material';
 import { Percent } from '@mui/icons-material';
 import { toggleFatModal } from '../../store/uiSlice';
 import { setFatPerc } from '../../store/mealsSlice';

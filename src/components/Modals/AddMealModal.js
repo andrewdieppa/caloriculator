@@ -3,11 +3,9 @@ import { useSelector, useDispatch } from 'react-redux';
 import {
   Modal,
   AppBar,
-  Stack,
   Box,
   Button,
   Typography,
-  Divider,
   Grow,
   TextField,
 } from '@mui/material';

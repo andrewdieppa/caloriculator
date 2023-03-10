@@ -1,4 +1,4 @@
-import { Box, Zoom } from '@mui/material';
+import Zoom from '@mui/material/Zoom';
 import { ArrowUpward, ArrowDownward, ThumbUp } from '@mui/icons-material';
 
 const ValidIndicator = ({ validityVar }) => {

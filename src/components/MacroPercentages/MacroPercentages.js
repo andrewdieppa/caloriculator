@@ -2,13 +2,8 @@ import SectionTitle from '../Reusable/SectionTitle/SectionTitle';
 import PercentSlider from './PercentSlider';
 import ValidIndicator from '../UI/ValidIndicator';
 import { Paper, Box, Stack, Typography, Alert, Zoom } from '@mui/material';
-import {
-  Percent,
-  ArrowUpward,
-  ArrowDownward,
-  ThumbUp,
-} from '@mui/icons-material';
-import { useSelector, useDispatch } from 'react-redux';
+import { Percent } from '@mui/icons-material';
+import { useSelector } from 'react-redux';
 import {
   setProteinPerc,
   setCarbPerc,

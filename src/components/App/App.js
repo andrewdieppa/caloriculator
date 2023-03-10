@@ -9,7 +9,7 @@ import FatModal from '../Modals/FatModal';
 import ArrangeModal from '../Modals/ArrangeModal';
 import AddMealModal from '../Modals/AddMealModal';
 import SnackBarWarning from '../SnackBar/SnackBarWarning';
-import { Container, Grid, Box } from '@mui/material';
+import { Container, Box } from '@mui/material';
 
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseLine from '@mui/material/CssBaseline';
