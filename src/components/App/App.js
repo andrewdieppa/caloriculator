@@ -3,12 +3,21 @@ import { ThemeProvider } from '@mui/material/styles';
 import CssBaseLine from '@mui/material/CssBaseline';
 import AppPage from '../../pages/AppPage';
 import SignUpPage from '../../pages/SignUpPage';
+import LoginPage from '../../pages/LoginPage';
+import Layout from '../../pages/Layout';
 import { useSelector } from 'react-redux';
 import themes from '../../themes';
 
 const router = createBrowserRouter([
-  { path: '/', element: <AppPage /> },
-  { path: '/signup', element: <SignUpPage /> },
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      { path: '/', element: <AppPage /> },
+      { path: '/signup', element: <SignUpPage /> },
+      { path: '/login', element: <LoginPage /> },
+    ],
+  },
 ]);
 
 function App() {

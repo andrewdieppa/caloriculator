@@ -8,10 +8,13 @@ import {
   Button,
   IconButton,
 } from '@mui/material';
+import { useTheme } from '@mui/material/styles';
 import { useDispatch } from 'react-redux';
 import { toggleMode } from '../../store/uiSlice';
+import { Link } from 'react-router-dom';
 
 const NavAppBar = () => {
+  const theme = useTheme();
   const dispatch = useDispatch();
 
   const handleModeToggle = () => {
@@ -32,12 +35,21 @@ const NavAppBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            Caloriculator
-            <Typography variant="body2" component="p">
-              Worst name ever...
-            </Typography>
+            <Link
+              to="/"
+              style={{
+                textDecoration: 'none',
+                color: theme.palette.primary.contrastText,
+              }}
+            >
+              Caloriculator
+            </Link>
           </Typography>
-          <Button color="inherit">Login</Button>
+          <Link to="/signup" style={{ textDecoration: 'none' }}>
+            <Button sx={{ color: theme.palette.primary.contrastText }}>
+              Login
+            </Button>
+          </Link>
           <MuiLightDarkSwitch onChange={handleModeToggle} />
         </Toolbar>
       </AppBar>

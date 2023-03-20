@@ -1,7 +1,7 @@
 import { Paper, Stack, Button, Typography, TextField } from '@mui/material';
 import { Link } from 'react-router-dom';
 
-const SignUpPage = () => {
+const LoginPage = () => {
   const formContainerStyles = {
     mt: 10,
     mx: 'auto',
@@ -13,20 +13,17 @@ const SignUpPage = () => {
     <Paper sx={formContainerStyles}>
       <form>
         <Stack spacing={3}>
-          <Typography variant="h4">Sign Up</Typography>
+          <Typography variant="h4">Log In</Typography>
           <TextField label="Email" />
           <TextField type="password" label="Password" />
-          <TextField type="password" label="Confirm Password" />
           <Button variant="contained" type="submit">
-            Create Account
+            Submit
           </Button>
           <Stack spacing={2} direction="row" justifyContent="center">
-            <Typography variant="subtitle1">
-              Already have an account?
-            </Typography>
-            <Link to="/login" style={{ textDecoration: 'none' }}>
+            <Typography variant="subtitle1">Don't have an account?</Typography>
+            <Link to="/signup" style={{ textDecoration: 'none' }}>
               <Button variant="outlined" size="small">
-                Log In
+                Create Account
               </Button>
             </Link>
           </Stack>
@@ -36,4 +33,4 @@ const SignUpPage = () => {
   );
 };
 
-export default SignUpPage;
+export default LoginPage;

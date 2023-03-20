@@ -1,4 +1,3 @@
-import NavAppBar from '../components/NavAppBar/NavAppBar';
 import MacroPercentages from '../components/MacroPercentages/MacroPercentages';
 import MacroGrams from '../components/MacroGrams/MacroGrams';
 import TotalCalories from '../components/TotalCalories/TotalCalories';
@@ -14,7 +13,6 @@ import { Container, Box } from '@mui/material';
 const AppPage = () => {
   return (
     <>
-      <NavAppBar />
       <Container maxWidth="sm">
         <Box sx={{ display: 'flex', flexDirection: 'column', mb: 8 }}>
           <Box sx={{ mb: 2 }}>
