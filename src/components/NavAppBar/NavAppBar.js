@@ -45,7 +45,7 @@ const NavAppBar = () => {
               Caloriculator
             </Link>
           </Typography>
-          <Link to="/signup" style={{ textDecoration: 'none' }}>
+          <Link to="/login" style={{ textDecoration: 'none' }}>
             <Button sx={{ color: theme.palette.primary.contrastText }}>
               Login
             </Button>
