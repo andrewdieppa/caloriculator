@@ -1,5 +1,12 @@
 import { useState, useEffect } from 'react';
-import { Paper, Stack, Button, Typography, TextField } from '@mui/material';
+import {
+  Paper,
+  Stack,
+  Button,
+  Typography,
+  TextField,
+  Alert,
+} from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
@@ -8,6 +15,9 @@ import { useSelector } from 'react-redux';
 const LoginPage = () => {
   const { user } = useSelector(state => state.auth);
   const navigate = useNavigate();
+
+  // Alert state
+  const [alertMsg, setAlertMsg] = useState(null);
 
   useEffect(() => {
     // if user is logged in, redirect to home page
@@ -37,17 +47,24 @@ const LoginPage = () => {
 
   const handleLogin = async e => {
     e.preventDefault();
+    setAlertMsg(null);
 
     try {
-      const userCred = await signInWithEmailAndPassword(auth, email, password);
-      console.log(
-        `Signed in as user: ${userCred.user.email} password: ${password}`
-      );
+      if (email === '' || password === '') {
+        setAlertMsg('Please enter your email and password.');
+        return;
+      }
+      await signInWithEmailAndPassword(auth, email, password);
     } catch (error) {
       const errorCode = error.code;
-      const errorMessage = error.message;
-
-      console.log(`Error code: ${errorCode} message: ${errorMessage}`);
+      if (
+        errorCode === 'auth/invalid-email' ||
+        errorCode === 'auth/wrong-password'
+      ) {
+        setAlertMsg('Invalid email or password.');
+      } else {
+        setAlertMsg('Something went wrong. Please try again.');
+      }
     }
   };
 
@@ -56,6 +73,7 @@ const LoginPage = () => {
       <form onSubmit={handleLogin}>
         <Stack spacing={3}>
           <Typography variant="h4">Log In</Typography>
+          {alertMsg && <Alert severity="error">{alertMsg}</Alert>}
           <TextField label="Email" onChange={handleEmailChange} />
           <TextField
             type="password"
