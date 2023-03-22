@@ -1,5 +1,12 @@
 import { useState, useEffect, useMemo } from 'react';
-import { Paper, Stack, Button, Typography, TextField } from '@mui/material';
+import {
+  Paper,
+  Stack,
+  Button,
+  Typography,
+  TextField,
+  Alert,
+} from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
@@ -39,6 +46,9 @@ const SignUpPage = () => {
 
   const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
   const passwordRegex = useMemo(() => /^.{6,}$/, []);
+
+  // Alert state
+  const [alertMsg, setAlertMsg] = useState(null);
 
   // input validation
   useEffect(() => {
@@ -102,15 +112,16 @@ const SignUpPage = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+
+      // clear input fields
       setEmail('');
       setPassword('');
       setConfirmPassword('');
+
+      // redirect to home page
       navigate('/');
     } catch (error) {
-      const errorCode = error.code;
-      const errorMessage = error.message;
-
-      console.log(`Error code: ${errorCode} message: ${errorMessage}`);
+      setAlertMsg('Error creating account. Please try again.');
     }
   };
 
@@ -119,6 +130,7 @@ const SignUpPage = () => {
       <form onSubmit={handleSignUp}>
         <Stack spacing={3}>
           <Typography variant="h4">Sign Up</Typography>
+          {alertMsg && <Alert severity="error">{alertMsg}</Alert>}
           <TextField
             label="Email"
             value={email}
