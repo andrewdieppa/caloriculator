@@ -107,12 +107,14 @@ const Meal = ({ meal }) => {
 
   // delete meal
   const handleDeleteClick = () => {
-    // dispatch(removeMeal(meal.id));
     setDeleted(true);
   };
 
   const handleDeleteExit = () => {
     dispatch(removeMeal(meal.id));
+    dispatch(setProteinPercTotal());
+    dispatch(setCarbPercTotal());
+    dispatch(setFatPercTotal());
   };
 
   // conditional title bar content for edit mode
