@@ -1,10 +1,21 @@
 import { useState, useEffect, useMemo } from 'react';
 import { Paper, Stack, Button, Typography, TextField } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { createUserWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
+import { useSelector } from 'react-redux';
 
 const SignUpPage = () => {
+  const { user } = useSelector(state => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // if user is logged in, redirect to home page
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
   const formContainerStyles = {
     mt: 10,
     mx: 'auto',
@@ -24,10 +35,12 @@ const SignUpPage = () => {
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
+  const [isFormValid, setIsFormValid] = useState(false);
 
   const emailRegex = useMemo(() => /^[^\s@]+@[^\s@]+\.[^\s@]+$/, []);
   const passwordRegex = useMemo(() => /^.{6,}$/, []);
 
+  // input validation
   useEffect(() => {
     if (!emailRegex.test(email) && emailTouched) {
       setEmailError(true);
@@ -60,6 +73,18 @@ const SignUpPage = () => {
     passwordRegex,
   ]);
 
+  useEffect(() => {
+    if (
+      emailRegex.test(email) &&
+      passwordRegex.test(password) &&
+      password === confirmPassword
+    ) {
+      setIsFormValid(true);
+    } else {
+      setIsFormValid(false);
+    }
+  }, [email, password, confirmPassword, emailRegex, passwordRegex]);
+
   const handleEmailChange = e => {
     setEmail(e.target.value);
   };
@@ -74,20 +99,13 @@ const SignUpPage = () => {
 
   const handleSignUp = async e => {
     e.preventDefault();
-    if (password !== confirmPassword) {
-      alert("Passwords don't match");
-      return;
-    }
 
     try {
-      const userCred = await createUserWithEmailAndPassword(
-        auth,
-        email,
-        password
-      );
-      console.log(
-        `Signed up user: ${userCred.user.email} password: ${password}`
-      );
+      await createUserWithEmailAndPassword(auth, email, password);
+      setEmail('');
+      setPassword('');
+      setConfirmPassword('');
+      navigate('/');
     } catch (error) {
       const errorCode = error.code;
       const errorMessage = error.message;
@@ -103,6 +121,7 @@ const SignUpPage = () => {
           <Typography variant="h4">Sign Up</Typography>
           <TextField
             label="Email"
+            value={email}
             error={emailError}
             onChange={handleEmailChange}
             onBlur={() => setEmailTouched(true)}
@@ -110,6 +129,7 @@ const SignUpPage = () => {
           <TextField
             type="password"
             label="Password"
+            value={password}
             error={passwordError}
             onChange={handlePasswordChange}
             onBlur={() => setPasswordTouched(true)}
@@ -117,11 +137,12 @@ const SignUpPage = () => {
           <TextField
             type="password"
             label="Confirm Password"
+            value={confirmPassword}
             error={confirmPasswordError}
             onChange={handleConfirmPasswordChange}
             onBlur={() => setConfirmPasswordTouched(true)}
           />
-          <Button variant="contained" type="submit">
+          <Button disabled={!isFormValid} variant="contained" type="submit">
             Create Account
           </Button>
           <Stack spacing={2} direction="row" justifyContent="center">

@@ -9,17 +9,39 @@ import {
   IconButton,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleMode } from '../../store/uiSlice';
 import { Link } from 'react-router-dom';
+import { auth } from '../../firebase-config';
 
 const NavAppBar = () => {
   const theme = useTheme();
   const dispatch = useDispatch();
+  const { user } = useSelector(state => state.auth);
 
   const handleModeToggle = () => {
     dispatch(toggleMode());
   };
+
+  const logoutHandler = () => {
+    auth.signOut();
+  };
+
+  const loginLogoutButton = user ? (
+    <Button onClick={logoutHandler} sx={{ color: 'inherit' }}>
+      Logout
+    </Button>
+  ) : (
+    <Link
+      to="/login"
+      style={{
+        textDecoration: 'none',
+        color: theme.palette.primary.contrastText,
+      }}
+    >
+      <Button sx={{ color: 'inherit' }}>Login</Button>
+    </Link>
+  );
 
   return (
     <Box sx={{ flexGrow: 1, mb: 2 }}>
@@ -45,11 +67,7 @@ const NavAppBar = () => {
               Caloriculator
             </Link>
           </Typography>
-          <Link to="/login" style={{ textDecoration: 'none' }}>
-            <Button sx={{ color: theme.palette.primary.contrastText }}>
-              Login
-            </Button>
-          </Link>
+          {loginLogoutButton}
           <MuiLightDarkSwitch onChange={handleModeToggle} />
         </Toolbar>
       </AppBar>

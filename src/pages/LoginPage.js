@@ -1,10 +1,21 @@
-import { useState } from 'react';
+import { useState, useEffect } from 'react';
 import { Paper, Stack, Button, Typography, TextField } from '@mui/material';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { signInWithEmailAndPassword } from 'firebase/auth';
 import { auth } from '../firebase-config';
+import { useSelector } from 'react-redux';
 
 const LoginPage = () => {
+  const { user } = useSelector(state => state.auth);
+  const navigate = useNavigate();
+
+  useEffect(() => {
+    // if user is logged in, redirect to home page
+    if (user) {
+      navigate('/');
+    }
+  }, [user, navigate]);
+
   const formContainerStyles = {
     mt: 10,
     mx: 'auto',
