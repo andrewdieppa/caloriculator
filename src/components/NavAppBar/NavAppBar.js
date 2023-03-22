@@ -7,6 +7,7 @@ import {
   Typography,
   Button,
   IconButton,
+  Avatar,
 } from '@mui/material';
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
@@ -43,6 +44,8 @@ const NavAppBar = () => {
     </Link>
   );
 
+  const profileIcon = user ? <Avatar /> : null;
+
   return (
     <Box sx={{ flexGrow: 1, mb: 2 }}>
       <AppBar sx={{ p: { xs: 1, sm: 0 } }} position="static" enableColorOnDark>
@@ -67,6 +70,7 @@ const NavAppBar = () => {
               Caloriculator
             </Link>
           </Typography>
+          {profileIcon}
           {loginLogoutButton}
           <MuiLightDarkSwitch onChange={handleModeToggle} />
         </Toolbar>
