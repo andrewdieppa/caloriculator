@@ -8,15 +8,40 @@ import {
   Button,
   IconButton,
 } from '@mui/material';
-import { useDispatch } from 'react-redux';
+import { useTheme } from '@mui/material/styles';
+import { useDispatch, useSelector } from 'react-redux';
 import { toggleMode } from '../../store/uiSlice';
+import { Link } from 'react-router-dom';
+import { auth } from '../../firebase-config';
 
 const NavAppBar = () => {
+  const theme = useTheme();
   const dispatch = useDispatch();
+  const { user } = useSelector(state => state.auth);
 
   const handleModeToggle = () => {
     dispatch(toggleMode());
   };
+
+  const logoutHandler = () => {
+    auth.signOut();
+  };
+
+  const loginLogoutButton = user ? (
+    <Button onClick={logoutHandler} sx={{ color: 'inherit' }}>
+      Logout
+    </Button>
+  ) : (
+    <Link
+      to="/login"
+      style={{
+        textDecoration: 'none',
+        color: theme.palette.primary.contrastText,
+      }}
+    >
+      <Button sx={{ color: 'inherit' }}>Login</Button>
+    </Link>
+  );
 
   return (
     <Box sx={{ flexGrow: 1, mb: 2 }}>
@@ -32,12 +57,17 @@ const NavAppBar = () => {
             <MenuIcon />
           </IconButton>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            Caloriculator
-            <Typography variant="body2" component="p">
-              Worst name ever...
-            </Typography>
+            <Link
+              to="/"
+              style={{
+                textDecoration: 'none',
+                color: theme.palette.primary.contrastText,
+              }}
+            >
+              Caloriculator
+            </Link>
           </Typography>
-          <Button color="inherit">Login</Button>
+          {loginLogoutButton}
           <MuiLightDarkSwitch onChange={handleModeToggle} />
         </Toolbar>
       </AppBar>
