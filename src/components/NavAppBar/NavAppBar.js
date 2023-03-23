@@ -1,7 +1,7 @@
 import { useState } from 'react';
 import MuiLightDarkSwitch from '../MuiLightDarkSwitch/MuiLightDarkSwitch';
 import MenuIcon from '@mui/icons-material/Menu';
-import { Logout, AccountCircle, MenuBook } from '@mui/icons-material';
+import { Logout, Login, AccountCircle, MenuBook } from '@mui/icons-material';
 import {
   AppBar,
   Box,
@@ -17,11 +17,12 @@ import {
 import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMode } from '../../store/uiSlice';
-import { Link } from 'react-router-dom';
+import { Link, useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase-config';
 
 const NavAppBar = () => {
   const theme = useTheme();
+  const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector(state => state.auth);
 
@@ -45,23 +46,82 @@ const NavAppBar = () => {
     auth.signOut();
   };
 
-  const loginLogoutButton = user ? (
-    <Button onClick={logoutHandler} sx={{ color: 'inherit' }}>
-      Logout
-    </Button>
-  ) : (
+  // Menu click handling
+  const profileClickHandler = () => {
+    if (user) {
+      navigate('/profile');
+    } else {
+      navigate('/login');
+    }
+    handleCloseMenu();
+  };
+
+  const mealPlansClickHandler = () => {
+    if (user) {
+      navigate('/mealplans');
+    } else {
+      navigate('/login');
+    }
+    handleCloseMenu();
+  };
+
+  const loginClickHandler = () => {
+    navigate('/login');
+    handleCloseMenu();
+  };
+
+  const loginLogoutButton = user ? null : (
     <Link
-      to="/login"
+      to="/signup"
       style={{
         textDecoration: 'none',
         color: theme.palette.primary.contrastText,
       }}
     >
-      <Button sx={{ color: 'inherit' }}>Login</Button>
+      <Button sx={{ color: 'inherit' }}>Sign Up</Button>
     </Link>
   );
 
-  const profileIcon = user ? <Avatar /> : null;
+  const profileIcon = user ? (
+    <Avatar
+      onClick={profileClickHandler}
+      sx={{ ':hover': { cursor: 'pointer' } }}
+    />
+  ) : null;
+
+  const menuProfileItem = user ? (
+    <MenuItem onClick={profileClickHandler}>
+      <ListItemIcon>
+        <AccountCircle fontSize="small" />
+      </ListItemIcon>
+      Profile
+    </MenuItem>
+  ) : null;
+
+  const menuMealPlansItem = user ? (
+    <MenuItem onClick={mealPlansClickHandler}>
+      <ListItemIcon>
+        <MenuBook fontSize="small" />
+      </ListItemIcon>
+      Meal Plans
+    </MenuItem>
+  ) : null;
+
+  const menuLoginLogoutItem = user ? (
+    <MenuItem onClick={logoutHandler}>
+      <ListItemIcon>
+        <Logout fontSize="small" />
+      </ListItemIcon>
+      Logout
+    </MenuItem>
+  ) : (
+    <MenuItem onClick={loginClickHandler}>
+      <ListItemIcon>
+        <Login fontSize="small" />
+      </ListItemIcon>
+      Login
+    </MenuItem>
+  );
 
   return (
     <Box sx={{ flexGrow: 1, mb: 2 }}>
@@ -78,24 +138,9 @@ const NavAppBar = () => {
             <MenuIcon />
           </IconButton>
           <Menu anchorEl={anchorEl} open={open} onClose={handleCloseMenu}>
-            <MenuItem onClick={handleCloseMenu}>
-              <ListItemIcon>
-                <AccountCircle fontSize="small" />
-              </ListItemIcon>
-              Profile
-            </MenuItem>
-            <MenuItem onClick={handleCloseMenu}>
-              <ListItemIcon>
-                <MenuBook fontSize="small" />
-              </ListItemIcon>
-              Meal Plans
-            </MenuItem>
-            <MenuItem onClick={handleCloseMenu}>
-              <ListItemIcon>
-                <Logout fontSize="small" />
-              </ListItemIcon>
-              Logout
-            </MenuItem>
+            {menuProfileItem}
+            {menuMealPlansItem}
+            {menuLoginLogoutItem}
           </Menu>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
             <Link

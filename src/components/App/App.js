@@ -5,6 +5,8 @@ import CssBaseLine from '@mui/material/CssBaseline';
 import AppPage from '../../pages/AppPage';
 import SignUpPage from '../../pages/SignUpPage';
 import LoginPage from '../../pages/LoginPage';
+import ProfilePage from '../../pages/ProfilePage';
+import MealPlansPage from '../../pages/MealPlansPage';
 import Layout from '../../pages/Layout';
 import { useSelector, useDispatch } from 'react-redux';
 import themes from '../../themes';
@@ -20,6 +22,8 @@ const router = createBrowserRouter([
       { path: '/', element: <AppPage /> },
       { path: '/signup', element: <SignUpPage /> },
       { path: '/login', element: <LoginPage /> },
+      { path: '/profile', element: <ProfilePage /> },
+      { path: '/mealplans', element: <MealPlansPage /> },
     ],
   },
 ]);
