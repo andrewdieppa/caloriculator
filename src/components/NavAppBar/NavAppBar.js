@@ -14,14 +14,12 @@ import {
   MenuItem,
   ListItemIcon,
 } from '@mui/material';
-import { useTheme } from '@mui/material/styles';
 import { useDispatch, useSelector } from 'react-redux';
 import { toggleMode } from '../../store/uiSlice';
-import { Link, useNavigate } from 'react-router-dom';
+import { useNavigate } from 'react-router-dom';
 import { auth } from '../../firebase-config';
 
 const NavAppBar = () => {
-  const theme = useTheme();
   const navigate = useNavigate();
   const dispatch = useDispatch();
   const { user } = useSelector(state => state.auth);
@@ -40,10 +38,6 @@ const NavAppBar = () => {
 
   const handleModeToggle = () => {
     dispatch(toggleMode());
-  };
-
-  const logoutHandler = () => {
-    auth.signOut();
   };
 
   // Menu click handling
@@ -70,16 +64,25 @@ const NavAppBar = () => {
     handleCloseMenu();
   };
 
-  const loginLogoutButton = user ? null : (
-    <Link
-      to="/signup"
-      style={{
-        textDecoration: 'none',
-        color: theme.palette.primary.contrastText,
-      }}
-    >
-      <Button sx={{ color: 'inherit' }}>Sign Up</Button>
-    </Link>
+  const logoutClickHandler = () => {
+    auth.signOut();
+    handleCloseMenu();
+  };
+
+  // appBar click handling
+  const signUpHandler = () => {
+    navigate('/signup');
+  };
+
+  const titleClickHandler = () => {
+    navigate('/');
+  };
+
+  // appBar items
+  const signUpButton = user ? null : (
+    <Button onClick={signUpHandler} color="inherit">
+      Sign Up
+    </Button>
   );
 
   const profileIcon = user ? (
@@ -89,6 +92,7 @@ const NavAppBar = () => {
     />
   ) : null;
 
+  // Menu Items
   const menuProfileItem = user ? (
     <MenuItem onClick={profileClickHandler}>
       <ListItemIcon>
@@ -108,7 +112,7 @@ const NavAppBar = () => {
   ) : null;
 
   const menuLoginLogoutItem = user ? (
-    <MenuItem onClick={logoutHandler}>
+    <MenuItem onClick={logoutClickHandler}>
       <ListItemIcon>
         <Logout fontSize="small" />
       </ListItemIcon>
@@ -143,18 +147,12 @@ const NavAppBar = () => {
             {menuLoginLogoutItem}
           </Menu>
           <Typography variant="h5" component="div" sx={{ flexGrow: 1 }}>
-            <Link
-              to="/"
-              style={{
-                textDecoration: 'none',
-                color: theme.palette.primary.contrastText,
-              }}
-            >
+            <Button onClick={titleClickHandler} color="inherit">
               Caloriculator
-            </Link>
+            </Button>
           </Typography>
           {profileIcon}
-          {loginLogoutButton}
+          {signUpButton}
           <MuiLightDarkSwitch onChange={handleModeToggle} />
         </Toolbar>
       </AppBar>
