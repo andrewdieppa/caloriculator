@@ -8,7 +8,11 @@ import {
   Alert,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import { createUserWithEmailAndPassword } from 'firebase/auth';
+import {
+  createUserWithEmailAndPassword,
+  updateProfile,
+  sendEmailVerification,
+} from 'firebase/auth';
 import { auth } from '../firebase-config';
 import { useSelector } from 'react-redux';
 
@@ -24,21 +28,24 @@ const SignUpPage = () => {
   }, [user, navigate]);
 
   const formContainerStyles = {
-    mt: 10,
+    mt: 6,
     mx: 'auto',
     p: 2,
     maxWidth: { xs: '90%', sm: '400px' },
   };
 
   // input state
+  const [name, setName] = useState('');
   const [email, setEmail] = useState('');
   const [password, setPassword] = useState('');
   const [confirmPassword, setConfirmPassword] = useState('');
 
+  const [nameTouched, setNameTouched] = useState(false);
   const [emailTouched, setEmailTouched] = useState(false);
   const [passwordTouched, setPasswordTouched] = useState(false);
   const [confirmPasswordTouched, setConfirmPasswordTouched] = useState(false);
 
+  const [nameError, setNameError] = useState(false);
   const [emailError, setEmailError] = useState(false);
   const [passwordError, setPasswordError] = useState(false);
   const [confirmPasswordError, setConfirmPasswordError] = useState(false);
@@ -52,6 +59,12 @@ const SignUpPage = () => {
 
   // input validation
   useEffect(() => {
+    if (name.trim() === '' && nameTouched) {
+      setNameError(true);
+    } else {
+      setNameError(false);
+    }
+
     if (!emailRegex.test(email) && emailTouched) {
       setEmailError(true);
     } else {
@@ -73,9 +86,11 @@ const SignUpPage = () => {
       setConfirmPasswordError(false);
     }
   }, [
+    name,
     email,
     password,
     confirmPassword,
+    nameTouched,
     emailTouched,
     passwordTouched,
     confirmPasswordTouched,
@@ -85,6 +100,7 @@ const SignUpPage = () => {
 
   useEffect(() => {
     if (
+      name.trim() !== '' &&
       emailRegex.test(email) &&
       passwordRegex.test(password) &&
       password === confirmPassword
@@ -93,7 +109,11 @@ const SignUpPage = () => {
     } else {
       setIsFormValid(false);
     }
-  }, [email, password, confirmPassword, emailRegex, passwordRegex]);
+  }, [name, email, password, confirmPassword, emailRegex, passwordRegex]);
+
+  const handleNameChange = e => {
+    setName(e.target.value);
+  };
 
   const handleEmailChange = e => {
     setEmail(e.target.value);
@@ -112,8 +132,11 @@ const SignUpPage = () => {
 
     try {
       await createUserWithEmailAndPassword(auth, email, password);
+      await updateProfile(auth.currentUser, { displayName: name });
+      await sendEmailVerification(auth.currentUser);
 
       // clear input fields
+      setName('');
       setEmail('');
       setPassword('');
       setConfirmPassword('');
@@ -131,6 +154,13 @@ const SignUpPage = () => {
         <Stack spacing={3}>
           <Typography variant="h4">Sign Up</Typography>
           {alertMsg && <Alert severity="error">{alertMsg}</Alert>}
+          <TextField
+            label="Name"
+            value={name}
+            error={nameError}
+            onChange={handleNameChange}
+            onBlur={() => setNameTouched(true)}
+          />
           <TextField
             label="Email"
             value={email}

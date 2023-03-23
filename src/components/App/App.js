@@ -11,7 +11,7 @@ import Layout from '../../pages/Layout';
 import { useSelector, useDispatch } from 'react-redux';
 import themes from '../../themes';
 import { auth } from '../../firebase-config';
-import { setUser } from '../../store/authSlice';
+import { setUser, clearUser } from '../../store/authSlice';
 
 // Routing
 const router = createBrowserRouter([
@@ -39,9 +39,9 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
-        dispatch(setUser({ uid: user?.uid }));
+        dispatch(setUser({ uid: user?.uid, email: user?.email }));
       } else {
-        dispatch(setUser(null));
+        dispatch(clearUser());
       }
     });
 
