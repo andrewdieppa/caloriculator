@@ -1,55 +1,65 @@
-import NavAppBar from '../NavAppBar/NavAppBar';
-import MacroPercentages from '../MacroPercentages/MacroPercentages';
-import MacroGrams from '../MacroGrams/MacroGrams';
-import TotalCalories from '../TotalCalories/TotalCalories';
-import Meals from '../Meals/Meals';
-import ProteinModal from '../Modals/ProteinModal';
-import CarbModal from '../Modals/CarbModal';
-import FatModal from '../Modals/FatModal';
-import ArrangeModal from '../Modals/ArrangeModal';
-import AddMealModal from '../Modals/AddMealModal';
-import SnackBarWarning from '../SnackBar/SnackBarWarning';
-import { Container, Box } from '@mui/material';
-
+import { useEffect } from 'react';
+import { createBrowserRouter, RouterProvider } from 'react-router-dom';
 import { ThemeProvider } from '@mui/material/styles';
 import CssBaseLine from '@mui/material/CssBaseline';
-import { useSelector } from 'react-redux';
+import AppPage from '../../pages/AppPage';
+import SignUpPage from '../../pages/SignUpPage';
+import LoginPage from '../../pages/LoginPage';
+import ProfilePage from '../../pages/ProfilePage';
+import MealPlansPage from '../../pages/MealPlansPage';
+import Layout from '../../pages/Layout';
+import { useSelector, useDispatch } from 'react-redux';
 import themes from '../../themes';
+import { auth } from '../../firebase-config';
+import { setUser, clearUser } from '../../store/authSlice';
 
-function App() {
+// Routing
+const router = createBrowserRouter([
+  {
+    path: '/',
+    element: <Layout />,
+    children: [
+      { path: '/', element: <AppPage /> },
+      { path: '/signup', element: <SignUpPage /> },
+      { path: '/login', element: <LoginPage /> },
+      { path: '/profile', element: <ProfilePage /> },
+      { path: '/mealplans', element: <MealPlansPage /> },
+    ],
+  },
+]);
+
+const App = () => {
   const { mode } = useSelector(state => state.ui);
+  const dispatch = useDispatch();
 
+  // Set Theme
   const theme = mode === 'light' ? themes.lightTheme : themes.darkTheme;
+
+  // Add auth state change listener
+  useEffect(() => {
+    const unsubscribe = auth.onAuthStateChanged(user => {
+      if (user) {
+        dispatch(
+          setUser({
+            uid: user?.uid,
+            displayName: user?.displayName,
+            email: user?.email,
+          })
+        );
+      } else {
+        dispatch(clearUser());
+      }
+    });
+
+    return unsubscribe;
+  }, [dispatch]);
 
   return (
     <ThemeProvider theme={theme}>
       <CssBaseLine />
-      <NavAppBar />
-      <Container maxWidth="sm">
-        <Box sx={{ display: 'flex', flexDirection: 'column', mb: 8 }}>
-          <Box sx={{ mb: 2 }}>
-            <TotalCalories />
-          </Box>
-          <Box sx={{ mb: 2 }}>
-            <MacroPercentages />
-          </Box>
-          <Box sx={{ mb: 2 }}>
-            <MacroGrams />
-          </Box>
-          <Box sx={{ mb: 2 }}>
-            <Meals />
-          </Box>
-        </Box>
-      </Container>
-      {/* Modals and Snackbar alerts */}
-      <ProteinModal />
-      <CarbModal />
-      <FatModal />
-      <ArrangeModal />
-      <AddMealModal />
-      <SnackBarWarning />
+      <RouterProvider router={router} />
     </ThemeProvider>
   );
-}
+};
 
 export default App;
