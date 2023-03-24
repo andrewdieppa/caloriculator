@@ -151,6 +151,7 @@ const NavAppBar = () => {
               Caloriculator
             </Button>
           </Typography>
+          {user && <Typography sx={{ mr: 2 }}>{user.displayName}</Typography>}
           {profileIcon}
           {signUpButton}
           <MuiLightDarkSwitch onChange={handleModeToggle} />

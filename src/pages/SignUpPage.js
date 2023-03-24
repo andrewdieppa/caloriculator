@@ -8,17 +8,15 @@ import {
   Alert,
 } from '@mui/material';
 import { Link, useNavigate } from 'react-router-dom';
-import {
-  createUserWithEmailAndPassword,
-  updateProfile,
-  sendEmailVerification,
-} from 'firebase/auth';
+import { createUserWithEmailAndPassword, updateProfile } from 'firebase/auth';
 import { auth } from '../firebase-config';
-import { useSelector } from 'react-redux';
+import { useSelector, useDispatch } from 'react-redux';
+import { setUser } from '../store/authSlice';
 
 const SignUpPage = () => {
   const { user } = useSelector(state => state.auth);
   const navigate = useNavigate();
+  const dispatch = useDispatch();
 
   useEffect(() => {
     // if user is logged in, redirect to home page
@@ -133,7 +131,13 @@ const SignUpPage = () => {
     try {
       await createUserWithEmailAndPassword(auth, email, password);
       await updateProfile(auth.currentUser, { displayName: name });
-      await sendEmailVerification(auth.currentUser);
+      dispatch(
+        setUser({
+          uid: auth.currentUser.uid,
+          displayName: name,
+          email: auth.currentUser.email,
+        })
+      );
 
       // clear input fields
       setName('');

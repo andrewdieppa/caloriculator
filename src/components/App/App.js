@@ -39,7 +39,13 @@ const App = () => {
   useEffect(() => {
     const unsubscribe = auth.onAuthStateChanged(user => {
       if (user) {
-        dispatch(setUser({ uid: user?.uid, email: user?.email }));
+        dispatch(
+          setUser({
+            uid: user?.uid,
+            displayName: user?.displayName,
+            email: user?.email,
+          })
+        );
       } else {
         dispatch(clearUser());
       }
